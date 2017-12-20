@@ -57,11 +57,11 @@ The original videos and the output videos can be found in the folder test_videos
 ### 2. Optional Challenge
 The results I got while applying the pipeline to the first two videos provided by Udacity were decent, but it was not the case for the challenge video. 
 
-In the challenge video there are more difficulties:
+In the challenge, video there are more difficulties:
 - The car is driving on a curving road
 - The brightness and color of the asphalt varies a lot due to light intensity of the sun as well as shadows of the trees. 
 
-As a result, the Canny edge detector is not able to find the line using the grayscale image (where we lose info of the color)
+As a result, the Canny edge detector is not able to find the line using the grayscale image (where we lose info of the color).
 
 To overcome these problems, I apply the color isolation before grayscaling and also resize the region of interest. 
 - After reading in the image, I first convert original image from RGB to HSL;
@@ -96,11 +96,6 @@ As the result, the pipeline might not work properly, when the following cases(as
 
 - Adjust the region of interest mask dynamically;
 - If lines cannot be detected in current frame, we can use the information from previous frames and estimate the slope and positions of the missing lanes;
-- Further improve the draw_line() function, so it works better for curve lanes also;
+- Further improve the draw_lines() function, so it works better for curve lanes also;
 - Apply better filter and detector, which can extract lanes under the 3rd and 4th cases I metioned above.
 
-
-### 5. Useful websites
-https://medium.com/computer-car/udacity-self-driving-car-nanodegree-project-1-finding-lane-lines-9cd6a846c58c
-http://jokla.me/robotics/lane-detection/
-https://medium.com/@tjosh.owoyemi/finding-lane-lines-with-colour-thresholds-beb542e0d839
