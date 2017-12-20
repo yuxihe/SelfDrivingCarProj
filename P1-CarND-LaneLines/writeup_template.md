@@ -19,7 +19,6 @@ My pipeline consisted of the following 6 steps:
 6. Draw the lines on the original image.
 
 In order to draw a single line on the left and right lanes, I modified the draw_lines() function as following:
-
 Basically, we are trying to find 4 points to form 2 straight lines: one on the left and another one on the right
 1. I separated left and right lanes by using their slope ((y2-y1)/(x2-x1)):
   1. left lane: as x value increases, y value decreases: slope must thus be negative, and should be less than -0.5 in all the images and videos for testing provided by Udacity;
