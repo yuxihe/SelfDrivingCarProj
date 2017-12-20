@@ -23,7 +23,7 @@ Basically, we are trying to find 4 points to form 2 straight lines: one on the l
 1. I separated left and right lanes by using their slope ((y2-y1)/(x2-x1)):
   1. left lane: as x value increases, y value decreases: slope must thus be negative, and should be less than -0.5 in all the images and videos for testing provided by Udacity;
   2. right lane: as x value increases, y value increases: slope must thus be positive, and should be large than 0.5 in all the images and videos for testing provided by Udacity.
-2. after we got 2 lists of Y locations for left and right lanes, we can easily find Y locations for the final 4 points we are looking for:	
+2. after we got 2 lists of Y locations for left and right lanes, we can easily find Y locations for the final 4 points we are looking for:
   1. Y locations for the bottom 2 points will just be the image.shape[0], which is the maximum Y location of the image;
   2. Y locations for the top 2 points will just be the minimum Y locations of all lane line we detected.
 3. since we already find the Y locations, we can use numpy.polyfit to find a vector of coefficients that minimises the squared error for x = ay + b.
