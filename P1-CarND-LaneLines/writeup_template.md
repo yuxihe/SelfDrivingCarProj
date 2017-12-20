@@ -1,7 +1,7 @@
 # **Finding Lane Lines on the Road** 
 
 The goals of this project is to make a pipeline that finds lane lines on the road using python and OpenCV. See an exmple blow:
-<img src="test_images/whiteCarLaneSwitch.jpg" width="400"/>             <img src="test_images_output/step6.jpg" width="400"/>
+<img src="test_images/whiteCarLaneSwitch.jpg" width="400"/>           <img src="test_images_output/step6.jpg" width="400"/>
 The pipeline will be tested on some images and videos provided by Udacity. 
 
 ### Reflection
@@ -22,7 +22,8 @@ In order to draw a single line on the left and right lanes, I modified the draw_
 		left lane: as x value increases, y value decreases: slope must thus be negative, and should be less than -0.5 in all the images and videos for testing provided by Udacity;
 		right lane: as x value increases, y value increases: slope must thus be positive, and should be large than 0.5 in all the images and videos for testing provided by Udacity.
 	Second, after we got 2 lists of Y locations for left and right lanes, we can easily find Y locations for the final 4 points we are looking for:	
-		Y locations for the bottom 2 points will just be the image.shape[0], which is the maximum Y location of the image;
+		Y locations for the bottom 2 points will just be the image.shape[0],
+which is the maximum Y location of the image;
 		Y locations for the top 2 points will just be the minimum Y locations of all lane line we detected.
 	Third, since we already find the Y locations, we can use numpy.polyfit to find a vector of coefficients that minimises the squared error for x = ay + b.
 	Then, we used the coefficients to generate polynomials, and using polynomials to get X locations for all the 4 points.
