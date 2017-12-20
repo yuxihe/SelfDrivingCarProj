@@ -46,6 +46,7 @@ Here are results on test images provided by Udacity:
 <img src="test_images_output/solidYellowLeft.jpg" width="430"/>        <img src="test_images_output/whiteCarLaneSwitch.jpg" width="430"/>
 
 You can find the original pictures and the output pictures in the folder test_images and test_images_output respectively.
+
 You can also find the original videos and the output videos in the folder test_videos and test_videos_output respectively.
 
 ### 2. Optional Challenge
@@ -54,13 +55,15 @@ The results I got while applying the pipeline to the first two videos provided b
 In the challenge video there are more difficulties:
 - The car is driving on a curving road
 - The brightness and color of the asphalt varies a lot due to light intensity of the sun as well as shadows of the trees. 
+
 As a result, the Canny edge detector is not able to find the line using the grayscale image (where we lose info of the color)
 
 To overcome these problems, I apply the color isolation before grayscaling and also resize the region of interest. 
-- After reading in the image, I frist convert original image from RGB to HSL;
+- After reading in the image, I first convert original image from RGB to HSL;
 - Secondly, I isolate yellow and white from HSL image; 
 - Then combine isolated HSL with original image to get a combined_hsl_image;
 <img src="test_images_output/combined_hsl_image.jpg" width="480"/> 
+
 - After the above color isolation, I apply my 6 step pipeline with the combined image.
 
 
