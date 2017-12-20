@@ -2,7 +2,7 @@
 
 The goals of this project is to make a pipeline that finds lane lines on the road using python and OpenCV. See an exmple blow:
 
-<img src="test_images/whiteCarLaneSwitch.jpg" width="400"/>           <img src="test_images_output/step6.jpg" width="400"/>
+<img src="test_images/whiteCarLaneSwitch.jpg" width="430"/>        <img src="test_images_output/step6.jpg" width="430"/>
 
 The pipeline will be tested on some images and videos provided by Udacity. 
 
