@@ -1,56 +1,101 @@
 # **Finding Lane Lines on the Road** 
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-<img src="examples/laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
+The goals of this project is to make a pipeline that finds lane lines on the road using python and OpenCV. See an exmple blow:
 
-Overview
----
+<img src="test_images/whiteCarLaneSwitch.jpg" width="430"/>        <img src="test_images_output/step6.jpg" width="430"/>
 
-When we drive, we use our eyes to decide where to go.  The lines on the road that show us where the lanes are act as our constant reference for where to steer the vehicle.  Naturally, one of the first things we would like to do in developing a self-driving car is to automatically detect lane lines using an algorithm.
+The pipeline will be tested on some images and videos provided by Udacity. 
 
-In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.  
+## Reflection
 
-To complete the project, two files will be submitted: a file containing project code and a file containing a brief write up explaining your solution. We have included template files to be used both for the [code](https://github.com/udacity/CarND-LaneLines-P1/blob/master/P1.ipynb) and the [writeup](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md).The code file is called P1.ipynb and the writeup template is writeup_template.md 
+### 1. Pipeline Description
 
-To meet specifications in the project, take a look at the requirements in the [project rubric](https://review.udacity.com/#!/rubrics/322/view)
+My pipeline consisted of the following 6 steps:
+1. Read in and convert the input images to grayscale for easier manipulation;
+<img src="test_images_output/step1.jpg" width="480"/>
+
+2. Apply Gaussian Blur to smoothen the edges;
+<img src="test_images_output/step2.jpg" width="480"/>
+
+3. Apply Canny Edge Detection on smoothed gray image;
+<img src="test_images_output/step3.jpg" width="480"/>
+
+4. Select region of interest;
+<img src="test_images_output/step4.jpg" width="480"/>
+
+5. Apply Hough Tranform line detection;
+<img src="test_images_output/step5.jpg" width="480"/>
+
+6. Draw the lines on the original image.
+<img src="test_images_output/step6.jpg" width="480"/>
+
+In order to draw a single line on the left and right lanes, I modified the draw_lines() function as following:
+
+Basically, I'm trying to find 4 points to form 2 straight lines: one on the left and another one on the right
+- Frist, I separated left and right lanes by using their slope ((y2-y1)/(x2-x1)):
+  - Left lane: as x value increases, y value decreases: slope must thus be negative, and should be less than -0.5 in all the images and videos for testing provided by Udacity;
+  - Right lane: as x value increases, y value increases: slope must thus be positive, and should be large than 0.5 in all the images and videos for testing provided by Udacity.
+- Second, after we got 2 lists of Y locations for left and right lanes, we can easily find Y locations for the final 4 points we are looking for:	
+  - Y locations for the bottom 2 points will just be image.shape[0], which is the maximum Y location of the image;
+  - Y locations for the top 2 points will just be the minimum Y locations of all the lanes we detected.
+- Third, since we already find the Y locations, we can use numpy.polyfit to find a vector of coefficients that minimises the squared error for x = ay + b.
+- Then, we used the coefficients to generate polynomials, and using polynomials to get X locations for all the 4 points.
+- Finally, we can plot left line and right line seperately by using the 4 points we found.
+
+###  Result
+
+Here are results on test images provided by Udacity: 
+
+<img src="test_images_output/solidWhiteCurve.jpg" width="430"/>        <img src="test_images_output/solidWhiteRight.jpg" width="430"/>
+<img src="test_images_output/solidYellowCurve.jpg" width="430"/>        <img src="test_images_output/solidYellowCurve2.jpg" width="430"/>
+<img src="test_images_output/solidYellowLeft.jpg" width="430"/>        <img src="test_images_output/whiteCarLaneSwitch.jpg" width="430"/>
+
+The original pictures and the output pictures can be found in the folder test_images and test_images_output respectively.
+
+The original videos and the output videos can be found in the folder test_videos and test_videos_output respectively.
+
+### 2. Optional Challenge
+The results I got while applying the pipeline to the first two videos provided by Udacity were decent, but it was not the case for the challenge video. 
+
+In the challenge, video there are more difficulties:
+- The car is driving on a curving road
+- The brightness and color of the asphalt varies a lot due to light intensity of the sun as well as shadows of the trees. 
+
+As a result, the Canny edge detector is not able to find the line using the grayscale image (where we lose info of the color).
+
+To overcome these problems, I apply the color isolation before grayscaling and also resize the region of interest. 
+- After reading in the image, I first convert original image from RGB to HSL;
+- Secondly, I isolate yellow and white from HSL image; 
+- Then combine isolated HSL with original image to get a combined_hsl_image;
+<img src="test_images_output/combined_hsl_image.jpg" width="480"/> 
+
+- After the above color isolation, I apply my 6 step pipeline with the combined image.
+- I also resize the region of interest according to the dimensions of this video.
+
+The output video I got was not as good as the previous 2 output video: the right line is a little jumpy mainly because of the curve, since I was trying to fit a straight line on a curvy lane. 
+
+The original challenge video and the output video can be found in the folder test_videos and test_videos_output respectively.
 
 
-Creating a Great Writeup
----
-For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
+### 3. Identify potential shortcomings with your current pipeline
 
-1. Describe the pipeline
+The following assumptions are made according to all of the testing images and videos provided by Udacity :
+- The camera has always being in the same position with respect to the road;
+- The visibility of white or yellow lines is always clear on the road;
+- The vehicles in the same lanes are very far from us;
+- The road scenarios are always under good weather conditions.
 
-2. Identify any shortcomings
-
-3. Suggest possible improvements
-
-We encourage using images in your writeup to demonstrate how your pipeline works.  
-
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup. Here is a link to a [writeup template file](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md). 
+As the result, the pipeline might not work properly, when the following cases(as I can think of now) occur:
+- If the camera is placed at a different position, the region of interest need to be also adjusted;
+- If one or more lanes are missing, we can probably use the information from previous frames and estimate the slope and positions of the missing lanes;
+- If other vehicles in front are occluding the view;
+- At different weather and light condition (fog, rain, snow or at night).
 
 
-The Project
----
+### 4. Suggest possible improvements to your pipeline
 
-## If you have already installed the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) you should be good to go!   If not, you should install the starter kit to get started on this project. ##
-
-**Step 1:** Set up the [CarND Term1 Starter Kit](https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/83ec35ee-1e02-48a5-bdb7-d244bd47c2dc/lessons/8c82408b-a217-4d09-b81d-1bda4c6380ef/concepts/4f1870e0-3849-43e4-b670-12e6f2d4b7a7) if you haven't already.
-
-**Step 2:** Open the code in a Jupyter Notebook
-
-You will complete the project code in a Jupyter notebook.  If you are unfamiliar with Jupyter Notebooks, check out <A HREF="https://www.packtpub.com/books/content/basics-jupyter-notebook-and-python" target="_blank">Cyrille Rossant's Basics of Jupyter Notebook and Python</A> to get started.
-
-Jupyter is an Ipython notebook where you can run blocks of code and see results interactively.  All the code for this project is contained in a Jupyter notebook. To start Jupyter in your browser, use terminal to navigate to your project directory and then run the following command at the terminal prompt (be sure you've activated your Python 3 carnd-term1 environment as described in the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) installation instructions!):
-
-`> jupyter notebook`
-
-A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
-
-**Step 3:** Complete the project and submit both the Ipython notebook and the project writeup
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+- Adjust the region of interest mask dynamically;
+- If lines cannot be detected in current frame, we can use the information from previous frames and estimate the slope and positions of the missing lanes;
+- Further improve the draw_lines() function, so it works better for curve lanes also;
+- Apply better filter and detector, which can extract lanes under the 3rd and 4th cases I metioned above.
 
