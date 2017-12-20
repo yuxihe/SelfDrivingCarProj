@@ -10,19 +10,13 @@ The pipeline will be tested on some images and videos provided by Udacity.
 
 ### 1. Pipeline Description.
 
-My pipeline consisted of the following 6 steps. 
-
-Step 1: read in and converted the images to grayscale for easier manipulation;
-
-Step 2: apply Gaussian Blur to smoothen the edges;
-
-Step 3: apply Canny Edge Detection on smoothed gray image;
-
-Step 4: select region of interest;
-
-Step 5: apply Hough Tranform line detection;
-
-Step 6: draw the lines on the original image.
+My pipeline consisted of the following 6 steps:
+1. read in and converted the images to grayscale for easier manipulation;
+2. apply Gaussian Blur to smoothen the edges;
+3. apply Canny Edge Detection on smoothed gray image;
+4. select region of interest;
+5. apply Hough Tranform line detection;
+6. draw the lines on the original image.
 
 In order to draw a single line on the left and right lanes, I modified the draw_lines() function as following:
 Basically, we are trying to find 4 points to form 2 straight lines: one on the left and another one on the right
