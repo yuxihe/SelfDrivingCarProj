@@ -49,9 +49,7 @@ You can find the original pictures and the results in the folder test_images and
 
 And here are results on test videos provided by Udacity: 
 
-<video width="320" height="240" controls>
-  <source src="test_videos_output/solidWhiteRight.mp4" type="video/mp4">
-</video>
+<video src="test_videos_output/solidWhiteRight.mp4" width="320" height="200" controls preload></video>
 
 ### 2. Optional Challenge
 
