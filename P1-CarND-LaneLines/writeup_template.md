@@ -37,8 +37,10 @@ Basically, I'm trying to find 4 points to form 2 straight lines: one on the left
 - Then, we used the coefficients to generate polynomials, and using polynomials to get X locations for all the 4 points.
 - Finally, we can plot left line and right line seperately by using the 4 points we found.
 
-####  Result
+###  Result
+
 Here are some results on test images provided by Udacity: 
+
 <img src="test_images_output/solidWhiteCurve.jpg" width="430"/>        <img src="test_images_output/solidWhiteRight.jpg" width="430"/>
 <img src="test_images_output/solidYellowCurve.jpg" width="430"/>        <img src="test_images_output/solidYellowCurve2.jpg" width="430"/>
 <img src="test_images_output/solidYellowLeft.jpg" width="430"/>        <img src="test_images_output/whiteCarLaneSwitch.jpg" width="430"/>
