@@ -6,9 +6,9 @@ The goals of this project is to make a pipeline that finds lane lines on the roa
 
 The pipeline will be tested on some images and videos provided by Udacity. 
 
-### Reflection
+## Reflection
 
-### 1. Pipeline Description.
+### 1. Pipeline Description
 
 My pipeline consisted of the following 6 steps:
 
