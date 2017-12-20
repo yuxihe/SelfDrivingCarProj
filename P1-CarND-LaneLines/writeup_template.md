@@ -39,12 +39,19 @@ Basically, I'm trying to find 4 points to form 2 straight lines: one on the left
 
 ###  Result
 
-Here are some results on test images provided by Udacity: 
+Here are results on test images provided by Udacity: 
 
 <img src="test_images_output/solidWhiteCurve.jpg" width="430"/>        <img src="test_images_output/solidWhiteRight.jpg" width="430"/>
 <img src="test_images_output/solidYellowCurve.jpg" width="430"/>        <img src="test_images_output/solidYellowCurve2.jpg" width="430"/>
 <img src="test_images_output/solidYellowLeft.jpg" width="430"/>        <img src="test_images_output/whiteCarLaneSwitch.jpg" width="430"/>
 
+You can find the original pictures and the results in the folder test_images and test_images_output respectively.
+
+And here are results on test videos provided by Udacity: 
+
+<video width="320" height="240" controls>
+  <source src="test_videos_output/solidWhiteRight.mp4" type="video/mp4">
+</video>
 
 ### 2. Optional Challenge
 
