@@ -2,7 +2,7 @@
 
 The goals / steps of this project are the following:
 * Make a pipeline that finds lane lines on the road. See and exmple blow:
-![image1](./test_images/whiteCarLaneSwitch.jpg "Input Image" {width=40px height=80px}) 
+![image1](./test_images/whiteCarLaneSwitch.jpg "Input Image"){:height="40px" width="80px"}![image1](./test_images_output/step6.jpg "Output Image"){:height="40px" width="80px"}
 * Reflect on your work in a written report
 
 
