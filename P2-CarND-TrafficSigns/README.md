@@ -35,7 +35,7 @@ Here is an plot showing visualization of the data set for training, validation a
 
 ### Design and Test a Model Architecture
 
-My dataset preprocessing consisted of 2 steps:
+My dataset preprocessing consisted of 3 steps:
 
 - As a first step, I decided to convert the images to grayscale because it helps to reduce training time, which was nice when a GPU wasn't available. And since the network was well trained with grayscale images, it will be more robust when unclear colored traffic signs encounter. 
 
@@ -43,18 +43,9 @@ Here is an example of a traffic sign image before and after grayscaling.
 
 <img src="examples/grayscale.jpg" width="480"/>
 
-As a last step, I normalized the image data because ...
+- As the second step, I normalized the image data by using new_pixel = (pixel - 128) / 128 because this has the effect of zero-centering the data, and making the data fall within the range -1 to 1. Input that having a wider distribution in the data would make it more difficult to train using a singlar learning rate. Different features could encompass far different ranges and a single learning rate might make some weights diverge. So standardizing the pixel values helps gradient descent converge faster.
 
-I decided to generate additional data because ... 
-
-To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
-
+- As the last step, I converted the output class labels into one-hot encoded labels. This is important because different traffic signs do not have integer-like relationships with one another. By converting all labels into one-hot encoded labels, this incorrect underlying assumption can be avoid.
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
@@ -62,21 +53,27 @@ My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input         		| 32x32x1 grayscal image   						| 
+| Convolution 3x3     	| 1x1 stride, valid padding, outputs 28x28x6 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
-
+| Max pooling	      	| 2x2 ksize 2x2 stride,  outputs 14x14x6   		|
+| Convolution 3x3     	| 1x1 stride, valid padding, outputs 10x10x16 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 ksize 2x2 stride,  outputs 5x15x16   		|
+| Flatten input 	    | output 400      								|
+| Fully connected		| output 200        							|
+| Dropout				|           									|
+| Fully connected		| output 43         							|
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+To train the model, I used the Adam optimizer, which is already implemented in the LeNet lab. And the final settings used were:
+batch size: 128
+epochs: 30
+learning rate: 0.001
+mu: 0
+sigma: 0.1
+dropout keep probability: 0.5
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
