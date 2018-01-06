@@ -31,7 +31,7 @@ signs data set:
 
 Here is an plot showing visualization of the data set for training, validation and testing.
 
-<img src="visualization of the data set.png" width="480"/>
+<img src="visualization of the data set.png" width="960"/>
 
 ### Design and Test a Model Architecture
 
