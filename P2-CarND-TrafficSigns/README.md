@@ -127,79 +127,109 @@ For the first image, the top five soft max probabilities were
 
 | Probability         	 |     Prediction	        	   				 | 
 |:----------------------:|:---------------------------------------------:| 
-| .962316                | Speed limit (100km/h)                         |
+| 0.962316               | Speed limit (100km/h)                         |
 | 0.0320635              | Speed limit (80km/h)                          |
 | 0.00402459             | Speed limit (30km/h)                          |
 | 0.00158103             | Speed limit (50km/h)                          |
 | 1.10004e-05            | Speed limit (60km/h)                          |
 
-#2 image.  Top 5 incides are:  [1 5 3 6 4]
-Possible ClassId are:
-0.999999 Speed limit (30km/h)
-5.37672e-07 Speed limit (80km/h)
-3.77008e-09 Speed limit (60km/h)
-1.1529e-11 End of speed limit (80km/h)
-1.31734e-12 Speed limit (70km/h)
-#3 image.  Top 5 incides are:  [17  9 30 33 14]
-Possible ClassId are:
-1.0 No entry
-1.86016e-09 No passing
-3.02651e-13 Beware of ice/snow
-9.48803e-14 Turn right ahead
-2.9653e-14 Stop
-#4 image.  Top 5 incides are:  [18 26 11 27 38]
-Possible ClassId are:
-1.0 General caution
-1.04495e-17 Traffic signals
-4.3103e-19 Right-of-way at the next intersection
-7.2855e-22 Pedestrians
-6.22565e-23 Keep right
-#5 image.  Top 5 incides are:  [38  0  1  2  3]
-Possible ClassId are:
-1.0 Keep right
-0.0 Speed limit (20km/h)
-0.0 Speed limit (30km/h)
-0.0 Speed limit (50km/h)
-0.0 Speed limit (60km/h)
-#6 image.  Top 5 incides are:  [25 29 22 20 35]
-Possible ClassId are:
-1.0 Road work
-8.37017e-17 Bicycles crossing
-7.2024e-17 Bumpy road
-1.50548e-18 Dangerous curve to the right
-1.31295e-19 Ahead only
-#7 image.  Top 5 incides are:  [1 2 5 3 7]
-Possible ClassId are:
-0.999999 Speed limit (30km/h)
-7.84494e-07 Speed limit (50km/h)
-2.66463e-11 Speed limit (80km/h)
-5.74788e-14 Speed limit (60km/h)
-7.36425e-16 Speed limit (100km/h)
-#8 image.  Top 5 incides are:  [ 3  6  5 20  2]
-Possible ClassId are:
-0.999999 Speed limit (60km/h)
-7.94535e-07 End of speed limit (80km/h)
-8.46585e-08 Speed limit (80km/h)
-1.69821e-09 Dangerous curve to the right
-4.27803e-11 Speed limit (50km/h)
-#9 image.  Top 5 incides are:  [36 38 17 25 40]
-Possible ClassId are:
-0.862122 Go straight or right
-0.0549792 Keep right
-0.0484582 No entry
-0.0261883 Road work
-0.0077191 Roundabout mandatory
-#10 image.  Top 5 incides are:  [34 38 30 35 32]
-Possible ClassId are:
-0.999999 Turn left ahead
-7.08012e-07 Keep right
-1.08326e-11 Beware of ice/snow
-1.07908e-11 Ahead only
-3.18253e-12 End of all speed and passing limits
-#11 image.  Top 5 incides are:  [13 35 12 32  3]
-Possible ClassId are:
-1.0 Yield
-5.80352e-15 Ahead only
-5.43181e-15 Priority road
-2.00782e-15 End of all speed and passing limits
-4.00597e-18 Speed limit (60km/h)
+For the second image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 0.999999               | Speed limit (30km/h)                          |
+| 5.37672e-07            | Speed limit (80km/h)                          |
+| 3.77008e-09            | Speed limit (60km/h)                          |
+| 1.1529e-11             | End of speed limit (80km/h)                   |
+| 1.31734e-12            | Speed limit (70km/h)                          |
+
+For the third image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 1.0                    | No entry                                      |
+| 1.86016e-09            | No passing                                    |
+| 3.02651e-13            | Beware of ice/snow                            |
+| 9.48803e-14            | Turn right ahead                              |
+| 2.9653e-14             | Stop                                          |
+
+For the fourth image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 1.0                    | General caution                               |
+| 1.04495e-17            | Traffic signals                               |
+| 4.3103e-19             | Right-of-way at the next intersection         |
+| 7.2855e-22             | Pedestrians                                   |
+| 6.22565e-23            | Keep right                                    |
+
+
+For the fifth image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 1.0                    | Keep right                                    |
+| 0.0                    | Speed limit (20km/h)                          |
+| 0.0                    | Speed limit (30km/h)                          |
+| 0.0                    | Speed limit (50km/h)                          |
+| 0.0                    | Speed limit (60km/h)                          |
+
+For the sixth image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 1.0                    | Road work                                     |
+| 8.37017e-17            | Bicycles crossing                             |
+| 7.2024e-17             | Bumpy road                                    |
+| 1.50548e-18            | Dangerous curve to the right                  |
+| 1.31295e-19            | Ahead only                                    |
+
+For the seventh image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 0.999999               | Speed limit (30km/h)                          |
+| 7.84494e-07            | Speed limit (50km/h)                          |
+| 2.66463e-11            | Speed limit (80km/h)                          |
+| 5.74788e-14            | Speed limit (60km/h)                          |
+| 7.36425e-16            | Speed limit (100km/h)                         |
+
+For the eigth image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 0.999999               | Speed limit (60km/h)                          |
+| 7.94535e-07            | End of speed limit (80km/h)                   |
+| 8.46585e-08            | Speed limit (80km/h)                          |
+| 1.69821e-09            | Dangerous curve to the right                  | 
+| 4.27803e-11            | Speed limit (50km/h)                          |
+
+For the ninth image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 0.862122               | Go straight or right                          |
+| 0.0549792              | Keep right                                    |
+| 0.0484582              | No entry                                      |
+| 0.0261883              | Road work                                     | 
+| 0.0077191              | Roundabout mandatory                          |
+
+For the tenth image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 0.999999               | Turn left ahead                               |
+| 7.08012e-07            | Keep right                                    |
+| 1.08326e-11            | Beware of ice/snow                            |
+| 1.07908e-11            | Ahead only                                    |
+| 3.18253e-12            | End of all speed and passing limits           |
+
+For the eleventh image, the top five soft max probabilities were
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| 1.0                    | Yield                                         |
+| 5.80352e-15            | Ahead only                                    |
+| 5.43181e-15            | Priority road                                 |
+| 2.00782e-15            | End of all speed and passing limits           |
+| 4.00597e-18            | Speed limit (60km/h)                          |
