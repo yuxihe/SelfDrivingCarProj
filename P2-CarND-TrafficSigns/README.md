@@ -93,7 +93,7 @@ My approach was based on an already well known implementation. I started with pr
 
 Here are eleven German traffic signs that I found on the web:
 
-<img src="sample_images/30 speed.png" width="120"/><img src="sample_images/100 speed.png" width="120"/><img src="sample_images/do not enter.png" width="120"/>
+<img src="sample_images/30 speed.png" width="120"/><img src="sample_images/100 speed.png" width="120"/><img src="sample_images/do not enter.png" width="120"/><img src="sample_images/general_caution.png" width="120"/><img src="sample_images/keep_right.png" width="120"/><img src="sample_images/road work.png" width="120"/><img src="sample_images/speed_30.png" width="120"/><img src="sample_images/speed_60.png" width="120"/><img src="sample_images/straight or right.png" width="120"/><img src="sample_images/turn_left_ahead.png" width="120"/><img src="sample_images/yield.png" width="120"/>
 
 The first image might be difficult to classify because ...
 
