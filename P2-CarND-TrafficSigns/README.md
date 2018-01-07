@@ -81,7 +81,8 @@ To train the model, I used the Adam optimizer, which is already implemented in t
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. 
 
 My final model results was:
-* test set accuracy of 0.935
+* validation set accuracy of 0.96
+* test set accuracy of 0.943
 
 My approach was based on an already well known implementation. I started with pre-defined architecture (LeNet architecture), since traffic sign classification is an image classification problem, which is similar to character recognition. I simplified and shrank the model to 2 fully connected layer and also add dropout between them to better fit the traffic sign classification problem at hand. And I also tried data preprocessing, hyperparameter tuning, etc. A potential enhancement to this project would be to explore more complicated neural network architectures. The log in jupyter notebook shows how my training and validation accuracy improved during each epoch.
 
@@ -95,41 +96,71 @@ Here are eleven German traffic signs that I found on the web:
 
 <img src="sample_images/30 speed.png" width="120"/><img src="sample_images/100 speed.png" width="120"/><img src="sample_images/do not enter.png" width="120"/><img src="sample_images/general_caution.png" width="120"/><img src="sample_images/keep_right.png" width="120"/><img src="sample_images/road work.png" width="120"/><img src="sample_images/speed_30.png" width="120"/><img src="sample_images/speed_60.png" width="120"/><img src="sample_images/straight or right.png" width="120"/><img src="sample_images/turn_left_ahead.png" width="120"/><img src="sample_images/yield.png" width="120"/>
 
-The first image might be difficult to classify because ...
+I downloaded 11 traffic sign images randomly online. All 11 images are color images. The brightness of some images are not as good as the others, which can test how robust my network is when encouter unclear signs.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Image			            |     Prediction	        					| 
+|:-------------------------:|:---------------------------------------------:| 
+| Speed limit (100km/h)     | Speed limit (100km/h)   						| 
+| Speed limit (30km/h)     	| Speed limit (30km/h) 							|
+| No entry					| No entry										|
+| General caution	      	| General caution					 			|
+| Keep right			    | Keep right     							    |
+| Road work                 | Road work                 					| 
+| Speed limit (30km/h)     	| Speed limit (30km/h) 							|
+| Speed limit (60km/h)		| Speed limit (60km/h)							|
+| Go straight or right	   	| Go straight or right					 		|
+| Turn left ahead			| Turn left ahead    							|
+| Yield			            | Yield    				            			|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 11 of the 11 traffic signs, which gives an accuracy of 100% - even better than the 96% validation accuracy and the 94.3% test accuracy. This is a good sign that the model performs well on real-world data. But since I only tried 11 images, the sample size is too small to draw a solid conclusion.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 14th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+For the first image, the top five soft max probabilities were
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| .96         			| Speed limit (100km/h)  						| 
+| .03     				| Speed limit (80km/h) 							|
+| .004					| Speed limit (30km/h)							|
+| .001	      			| Speed limit (50km/h)					 	    |
+| .0001				    | Speed limit (60km/h)      					|
 
+For the second image, the top five soft max probabilities were
 
-For the second image ... 
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| .99         			| Speed limit (30km/h)  						| 
+| .0000005     			| Speed limit (80km/h) 							|
+| .000000004			| Speed limit (60km/h)							|
+| .00000000001	      	| End of speed limit (80km/h)					|
+| .000000000001			| Speed limit (70km/h)      					|
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+For the third image, the top five soft max probabilities were
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1.00         			| No entry 						                | 
+| .000000002	      	| No passing					                |
+| .0000000000001		| Beware of ice/snow      					    |
+| .00000000000009		| Turn right ahead     					        |
+| .00000000000003		| Stop      					                |
+
+For the fourth image, the top five soft max probabilities were
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1.00         			| No entry 						                | 
+| .000000002	      	| No passing					                |
+| .0000000000001		| Beware of ice/snow      					    |
+| .00000000000009		| Turn right ahead     					        |
+| .00000000000003		| Stop      					                |
 
 
