@@ -91,10 +91,9 @@ My approach was based on an already well known implementation. I started with pr
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here are five German traffic signs that I found on the web:
+Here are eleven German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+<img src="sample_images/30 speed.png" width="480"/><img src="sample_images/100 speed.png" width="480"/><img src="sample_images/do not enter.png" width="480"/>
 
 The first image might be difficult to classify because ...
 
