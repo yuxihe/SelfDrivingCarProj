@@ -124,13 +124,15 @@ The model was able to correctly guess 11 of the 11 traffic signs, which gives an
 The code for making predictions on my final model is located in the 14th cell of the Ipython notebook.
 
 For the first image, the top five soft max probabilities were
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-|0.962316               | Speed limit (100km/h)                         |
-|0.0320635              | Speed limit (80km/h)                          |
-|0.00402459             | Speed limit (30km/h)                          |
-|0.00158103             | Speed limit (50km/h)                          |
-|1.10004e-05            | Speed limit (60km/h)                          |
+
+| Probability         	 |     Prediction	        	   				 | 
+|:----------------------:|:---------------------------------------------:| 
+| .962316                | Speed limit (100km/h)                         |
+| 0.0320635              | Speed limit (80km/h)                          |
+| 0.00402459             | Speed limit (30km/h)                          |
+| 0.00158103             | Speed limit (50km/h)                          |
+| 1.10004e-05            | Speed limit (60km/h)                          |
+
 #2 image.  Top 5 incides are:  [1 5 3 6 4]
 Possible ClassId are:
 0.999999 Speed limit (30km/h)
