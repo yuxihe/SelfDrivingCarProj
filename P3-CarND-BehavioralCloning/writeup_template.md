@@ -45,33 +45,34 @@ The model.py file contains the code for training and saving the convolution neur
 
 I'm using the NVIDIA Autonomous Car Group model, which can be summarized as following:
 
-<img src="examples/architecture_summary.jpg" width="960"/>
+<img src="examples/architecture_summary.jpg" width="720"/>
 
 The network consists of a normalization layer, followed by 5 convolution layers and then followed by 4 fully-connected layers. 
 
-- First, the data was normalized in the model using a Keras lambda layer (code line 66). 
-
-- Secondly, each image was cropped by choosing only the portion that is useful for predicting a steering angle, and excludes the sky togeter with the hood of the car, this might help to train the model faster (code line 67).
-
-- Then, the NVIDIA Autonomous Car Group model was implemented (code line 68-77).
+- First, the data was normalized in the model using a Keras lambda layer (model.py line 66). 
+- Secondly, each image was cropped by choosing only the portion that is useful for predicting a steering angle, and excludes the sky togeter with the hood of the car, this might help to train the model faster (model.py line 67).
+- Then, the NVIDIA Autonomous Car Group model was implemented (model.py line 68 - 77).
 
 #### 2. Attempts to reduce overfitting in the model
 
 I completely followed the NVIDIA Autonomous Car Group model without applying any regularization techniques like Dropout or Max pooling. Instead, to reduce overfitting:
 
 - I kept the training epochs low: 5 epochs. 
-
-- Also, the model was trained and validated on different data sets by splitting the sample data with 80% for training and 20% for validation (code line 17). 
+- Also, the model was trained and validated on different data sets by splitting the sample data with 80% for training and 20% for validation (model.py line 17). 
 
 The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 79).
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+Training data was chosen to keep the vehicle driving on the road. 
+
+- I used a combination of center lane driving, recovering from the left and right sides of the road. 
+- I flipped images and took the opposite sign of the steering measurement to help with the left turn bias. 
+- I also used all three different angles of image: center, left and right to train the model. 
 
 For details about how I created the training data, see the next section. 
 
@@ -79,27 +80,29 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+My overall strategy for deriving a model architecture was to implement an existing well known network first, then add or remove layers based on the training and validation results.
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+In order to quickly gauge how well the model was working, I used the training data provided by Udacity and split the image data and steering angle data into a training and validation set. 
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+The first existing well-known model I tried was the LeNet model(http://yann.lecun.com/exdb/lenet/), I thought this model might be appropriate because it performed well on many classification problems, and since figuring out steering angle can also be treated as a similar issue. I trained the model with the data set I mentioned above. After 5 epochs, on the first track, the car went straight to the lake. I added some pre-processing steps. A new Lambda layer was introduced to normalize the input images to zero means. This step allows the car to move a little bit further, but it didn't get to the first turn. Another Cropping layer was then introduced, to choose only the portion that is useful for predicting a steering After these 2 steps, the first turn was almost there, but not quite. 
 
-To combat the overfitting, I modified the model so that ...
+I think the bad performance of the LeNet model on this driving steering angle prediction is mainly because the steering angle is a continous value, which might not be easily classified to one of the category.
 
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+Then I tried a more powerfull model: NVIDIA Autonomous Car Group model(https://devblogs.nvidia.com/deep-learning-self-driving-cars/). I only added an output layer at the end to have a single output. This time the car sucessfully did its first complete track, but there were a few spots where the vehicle fell off the track. To improve the driving behavior in these cases, more training data was needed. I augmented the data by flipping the same image and taking the opposite sign of the steering measurement to help with the left turn bias (model.py line 43 - 49). In addition to that, I also used the left and right camera images with a correction factor on the angle to help the car go back to the center lane with more soft or sharp turn (model.py lines 29 - 41). 
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (model.py lines 66 - 77) I used is the NVIDIA Autonomous Car Group model with the following layers:
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+- First, the data was normalized in the model using a Keras lambda layer (model.py line 66). 
+- Secondly, each image was cropped by choosing only the portion that is useful for predicting a steering angle, and excludes the sky togeter with the hood of the car, this might help to train the model faster(model.py line 67).
+- Finally, there were 5 convolution layers and then followed by 4 fully-connected layers (model.py line 68 - 77).
 
-![alt text][image1]
+Here is a visualization of the architecture:
+
+
 
 #### 3. Creation of the Training Set & Training Process
 
