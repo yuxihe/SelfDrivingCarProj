@@ -1,6 +1,6 @@
 # **Behavioral Cloning** 
 
-**Goals**
+## **Goals**
 
 The goals / steps of this project are the following:
 * Use the simulator to collect data of good driving behavior
@@ -10,7 +10,7 @@ The goals / steps of this project are the following:
 * Summarize the results with a written report
 
 ## Rubric Points
-### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
+#### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
 ---
 ### Files Submitted & Code Quality
@@ -19,6 +19,7 @@ The goals / steps of this project are the following:
 
 My project includes the following files:
 * model.py containing the script to create and train the model
+* drive.py for driving the car in autonomous mode(This file is provided by Udacity, my only modification was to increase the car speed on line 47 from 9 to 18)
 * model.h5 containing a trained convolution neural network 
 * README.md summarizing the results
 * video.mp4 (a video recording of the vehicle driving autonomously around the first track for one full lap)
@@ -43,37 +44,7 @@ The model.py file contains the code for training and saving the convolution neur
 #### 1. An appropriate model architecture has been employed
 
 I'm using the NVIDIA Autonomous Car Group model, which can be summarized as following:
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #
-=================================================================
-lambda_1 (Lambda)            (None, 160, 320, 3)       0
-_________________________________________________________________
-cropping2d_1 (Cropping2D)    (None, 65, 320, 3)        0
-_________________________________________________________________
-conv2d_1 (Conv2D)            (None, 31, 158, 24)       1824
-_________________________________________________________________
-conv2d_2 (Conv2D)            (None, 14, 77, 36)        21636
-_________________________________________________________________
-conv2d_3 (Conv2D)            (None, 5, 37, 48)         43248
-_________________________________________________________________
-conv2d_4 (Conv2D)            (None, 3, 35, 64)         27712
-_________________________________________________________________
-conv2d_5 (Conv2D)            (None, 1, 33, 64)         36928
-_________________________________________________________________
-flatten_1 (Flatten)          (None, 2112)              0
-_________________________________________________________________
-dense_1 (Dense)              (None, 100)               211300
-_________________________________________________________________
-dense_2 (Dense)              (None, 50)                5050
-_________________________________________________________________
-dense_3 (Dense)              (None, 10)                510
-_________________________________________________________________
-dense_4 (Dense)              (None, 1)                 11
-=================================================================
-Total params: 348,219
-Trainable params: 348,219
-Non-trainable params: 0
-_________________________________________________________________
+<img src="examples/architecture_summary.jpg" width="960"/>
 
 The network consists of a normalization layer, followed by 5 convolution layers and then followed by 4 fully-connected layers. 
 
