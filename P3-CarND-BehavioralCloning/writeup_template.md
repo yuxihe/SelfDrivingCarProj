@@ -127,26 +127,20 @@ Here is a visualization of the architecture:
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![alt text][image2]
+<img src="examples/center-2017-02-06-16-20-04-855.jpg" width="480"/>
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn what to do if it gets off to the side of the road. Then I repeated this process on track two in order to get more data points.
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
+To augment the data sat, I also flipped images and angles thinking that this would helping with the left or right turn bias. For example, here is an image that has then been flipped:
 
-Then I repeated this process on track two in order to get more data points.
+<img src="examples/center-2017-02-06-16-20-04-855-flipped.jpg" width="480"/>
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
+After the collection process, I preprocessed this data by using cropping to choose only the portion that is useful for predicting a steering angle, and excludes the sky togeter with the hood of the car, , here is an image that has then been cropped:
 
-![alt text][image6]
-![alt text][image7]
+<img src="examples/original-image.jpg" width="480"/><img src="examples/cropped-image.jpg" width="480"/>
 
-Etc ....
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 to avoid overfitting. I used an adam optimizer so that manually training the learning rate wasn't necessary. The following picture shows the training and validation mean squared error loss:
 
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+<img src="examples/model mse loss.jpg" width="480"/>
