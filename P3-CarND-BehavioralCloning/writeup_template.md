@@ -137,7 +137,7 @@ To augment the data sat, I also flipped images and angles thinking that this wou
 
 After the collection process, I preprocessed this data by using cropping to choose only the portion that is useful for predicting a steering angle, and excludes the sky togeter with the hood of the car, here is an image that has then been cropped:
 
-<img src="examples/original-image.jpg" width="320"/><img src="examples/cropped-image.jpg" width="320"/>
+<img src="examples/original-image.jpg" width="320"/>                    <img src="examples/cropped-image.jpg" width="320"/>
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
