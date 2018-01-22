@@ -44,13 +44,16 @@ The model.py file contains the code for training and saving the convolution neur
 #### 1. An appropriate model architecture has been employed
 
 I'm using the NVIDIA Autonomous Car Group model, which can be summarized as following:
+
 <img src="examples/architecture_summary.jpg" width="960"/>
 
 The network consists of a normalization layer, followed by 5 convolution layers and then followed by 4 fully-connected layers. 
 
-- First, the data is normalized in the model using a Keras lambda layer (code line 66). 
+- First, the data was normalized in the model using a Keras lambda layer (code line 66). 
 
-- Secondly, each image is cropped by choosing only the portion that is useful for predicting a steering angle, and excludes the sky togeter with the hood of the car, this might help to train the model faster.
+- Secondly, each image was cropped by choosing only the portion that is useful for predicting a steering angle, and excludes the sky togeter with the hood of the car, this might help to train the model faster (code line 67).
+
+- Then, the NVIDIA Autonomous Car Group model was implemented (code line 68-77).
 
 #### 2. Attempts to reduce overfitting in the model
 
