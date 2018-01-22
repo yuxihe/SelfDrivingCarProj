@@ -129,15 +129,15 @@ To capture good driving behavior, I first recorded two laps on track one using c
 
 <img src="examples/center-2017-02-06-16-20-04-855.jpg" width="480"/>
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn what to do if it gets off to the side of the road. Then I repeated this process on track two in order to get more data points.
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn what to do if it gets off to the side of the road. 
 
 To augment the data sat, I also flipped images and angles thinking that this would helping with the left or right turn bias. For example, here is an image that has then been flipped:
 
 <img src="examples/center-2017-02-06-16-20-04-855-flipped.jpg" width="480"/>
 
-After the collection process, I preprocessed this data by using cropping to choose only the portion that is useful for predicting a steering angle, and excludes the sky togeter with the hood of the car, , here is an image that has then been cropped:
+After the collection process, I preprocessed this data by using cropping to choose only the portion that is useful for predicting a steering angle, and excludes the sky togeter with the hood of the car, here is an image that has then been cropped:
 
-<img src="examples/original-image.jpg" width="480"/><img src="examples/cropped-image.jpg" width="480"/>
+<img src="examples/original-image.jpg" width="320"/><img src="examples/cropped-image.jpg" width="320"/>
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
