@@ -117,7 +117,7 @@ Here is a visualization of the architecture:
 | RELU					|												|
 | Convolution 3x3     	| 1x1 stride, filter=64                     	|
 | RELU					|												|
-| Flatten input       	  | output 8448                					|
+| Flatten input       	| output 8448                					|
 | Fully connected		| output 100        							|
 | Fully connected		| output 50        					    		|
 | Fully connected		| output 10         							|
