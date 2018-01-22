@@ -19,10 +19,10 @@ The goals / steps of this project are the following:
 
 My project includes the following files:
 * model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode(This file is provided by Udacity, my only modification was to increase the car speed on line 47 from 9 to 18)
+* drive.py for driving the car in autonomous mode (This file is provided by Udacity, my only modification was to increase the car speed on line 47 from 9 to 18)
 * model.h5 containing a trained convolution neural network 
 * README.md summarizing the results
-* video.mp4 (a video recording of the vehicle driving autonomously around the first track for one full lap)
+* video.mp4 recording of the vehicle driving autonomously around the first track for one full lap
 
 Note:
 At the beginning of working on this project, I tried LeNet model and NVIDIA Autonomous Car Group model. These experiments could be found at clone.py.
@@ -33,7 +33,7 @@ Using the Udacity provided simulator and my drive.py file, the car can be driven
 ```sh
 python drive.py model.h5 run1
 ```
-The above command will load the trained model and use the model to make predictions on individual images in real-time and send the predicted angle back to the server via a websocket connection. And the fourth argument, run1, is the directory in which to save the images seen by the agent. If the directory already exists, it'll be overwritten.
+The above command will load the trained model and use the model to make predictions on individual images in real-time and send the predicted angle back to the server via a websocket connection. And the fourth argument, run1, is the directory in which to save the images for video.mp4 seen by the agent. If the directory already exists, it'll be overwritten.
 
 #### 3. Submission code is usable and readable
 
@@ -86,7 +86,7 @@ In order to quickly gauge how well the model was working, I used the training da
 
 The first existing well-known model I tried was the LeNet model(http://yann.lecun.com/exdb/lenet/), I thought this model might be appropriate because it performed well on many classification problems, and since figuring out steering angle can also be treated as a similar issue. I trained the model with the data set I mentioned above. After 5 epochs, on the first track, the car went straight to the lake. I added some pre-processing steps. A new Lambda layer was introduced to normalize the input images to zero means. This step allows the car to move a little bit further, but it didn't get to the first turn. Another Cropping layer was then introduced, to choose only the portion that is useful for predicting a steering After these 2 steps, the first turn was almost there, but not quite. 
 
-I think the bad performance of the LeNet model on this driving steering angle prediction is mainly because the steering angle is a continous value, which might not be easily classified to one of the category.
+I think the unsatisfied performance of the LeNet model on this driving steering angle prediction is mainly because the steering angle is a continous value, which might not be easily classified to one of the category.
 
 Then I tried a more powerfull model: NVIDIA Autonomous Car Group model(https://devblogs.nvidia.com/deep-learning-self-driving-cars/). I only added an output layer at the end to have a single output. This time the car sucessfully did its first complete track, but there were a few spots where the vehicle fell off the track. To improve the driving behavior in these cases, more training data was needed. I augmented the data by flipping the same image and taking the opposite sign of the steering measurement to help with the left turn bias (model.py line 43 - 49). In addition to that, I also used the left and right camera images with a correction factor on the angle to help the car go back to the center lane with more soft or sharp turn (model.py lines 29 - 41). 
 
@@ -102,7 +102,26 @@ The final model architecture (model.py lines 66 - 77) I used is the NVIDIA Auton
 
 Here is a visualization of the architecture:
 
-
+| Layer         		|     Description	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Input         		| 160x320x3 image       						| 
+| Lambda         		| Normalization            						| 
+| Cropping2D         	| cropping=((70,25), (0,0))       				| 
+| Convolution 5x5     	| 2x2 stride, filter=24                     	|
+| RELU					|												|
+| Convolution 5x5     	| 2x2 stride, filter=36                     	|
+| RELU					|												|
+| Convolution 5x5     	| 2x2 stride, filter=48                     	|
+| RELU					|												|
+| Convolution 3x3     	| 1x1 stride, filter=64                     	|
+| RELU					|												|
+| Convolution 3x3     	| 1x1 stride, filter=64                     	|
+| RELU					|												|
+| Flatten input       	  | output 8448                					|
+| Fully connected		| output 100        							|
+| Fully connected		| output 50        					    		|
+| Fully connected		| output 10         							|
+| Fully connected		| output 1          							|
 
 #### 3. Creation of the Training Set & Training Process
 
