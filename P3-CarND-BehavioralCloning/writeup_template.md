@@ -57,9 +57,13 @@ The network consists of a normalization layer, followed by 5 convolution layers 
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+I completely followed the NVIDIA Autonomous Car Group model without applying any regularization techniques like Dropout or Max pooling. Instead, to reduce overfitting:
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+- I kept the training epochs low: 5 epochs. 
+
+- Also, the model was trained and validated on different data sets by splitting the sample data with 80% for training and 20% for validation (code line 17). 
+
+The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
