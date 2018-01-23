@@ -145,4 +145,4 @@ I used this training data for training the model. The validation set helped dete
 
 <img src="examples/model mse loss.jpg" width="480"/>
 
-After this training, the car was driving down the road all the time on the first track.
+After this training, the car successfully drove around track one without leaving the road.
