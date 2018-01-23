@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 
 My project includes the following files:
 * model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode (This file is provided by Udacity, my only modification was to increase the car speed on line 47 from 9 to 18)
+* drive.py for driving the car in autonomous mode (This file is provided by Udacity, my only modification was to increase the car speed on line 47 from 9 to 15)
 * model.h5 containing a trained convolution neural network 
 * README.md summarizing the results
 * video.mp4 recording of the vehicle driving autonomously around the first track for one full lap
@@ -84,7 +84,7 @@ My overall strategy for deriving a model architecture was to implement an existi
 
 In order to quickly gauge how well the model was working, I used the training data provided by Udacity and split the image data and steering angle data into a training and validation set. 
 
-The first existing well-known model I tried was the LeNet model(http://yann.lecun.com/exdb/lenet/), I thought this model might be appropriate because it performed well on many classification problems, and since figuring out steering angle can also be treated as a similar issue. I trained the model with the data set I mentioned above. After 5 epochs, on the first track, the car went straight to the lake. I added some pre-processing steps. A new Lambda layer was introduced to normalize the input images to zero means. This step allows the car to move a little bit further, but it didn't get to the first turn. Another Cropping layer was then introduced, to choose only the portion that is useful for predicting a steering After these 2 steps, the first turn was almost there, but not quite. 
+The first existing well-known model I tried was the LeNet model(http://yann.lecun.com/exdb/lenet/), I thought this model might be appropriate because it performed well on many classification problems, and since figuring out steering angle can also be treated as a similar issue. I trained the model with the data set I mentioned above. After 5 epochs, on the first track, the car went straight to the lake. I added some pre-processing steps. A new Lambda layer was introduced to normalize the input images to zero means. This step allows the car to move a little bit further, but it didn't get to the first turn. Another Cropping layer was then introduced, to choose only the portion that is useful for predicting a steering angle. After these 2 steps, the first turn was almost there, but not quite. 
 
 I think the unsatisfied performance of the LeNet model on this driving steering angle prediction is mainly because the steering angle is a continous value, which might not be easily classified to one of the category.
 
