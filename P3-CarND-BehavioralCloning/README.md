@@ -144,3 +144,5 @@ I finally randomly shuffled the data set and put 20% of the data into a validati
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 to avoid overfitting. I used an adam optimizer so that manually training the learning rate wasn't necessary. The following picture shows the training and validation mean squared error loss:
 
 <img src="examples/model mse loss.jpg" width="480"/>
+
+After this training, the car was driving down the road all the time on the first track.
