@@ -109,7 +109,20 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial.
 
-* First, I defined a function called `histogram_pixel_peaks` to locate the lane lines and fit a polynomial by histogram and sliding window.(#14 code cell in `P4.ipynb`)
+I defined a function called `histogram_pixel_peaks` to locate the lane lines and fit a polynomial by histogram and sliding window.(#14 code cell in `P4.ipynb`)
+
+In this function:
+
+* First, I took a histogram of the bottom half of the image.
+* Secondly, I found the peak of the left and right halves of the histogram, which will be the starting point for the left and right lines.
+* Third, I created and initialized some variables and arrays for furture calculation, like the number of sliding windows, the height of windows, the width of the windows +/- margin, and so on.
+* Then, I stepped through the windows one by one:
+* * Identify window boundaries in x and y (and right and left)
+* * Draw the windows on the visualization image
+* * Identify the nonzero pixels in x and y within the window
+* * Append these indices to the lists
+* * If pixels found > minpix pixels, recenter next window on their mean position
+* Finally, I concatenate the arrays of indices, extract left and right line pixel positions and fit a second order polynomial to left and right lanes.
 
 <img src="output_images/out_img.jpg" width="430"/> 
 
@@ -117,7 +130,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 I defined a function named `find_3p_circle_radius` to finding the radius of the circle through 3 Points:
 
-<img src="output_images/3points.jpg" width="430"/> 
+<img src="output_images/3points.jpg" width="960"/> 
 
 ```python
 m1 = (y2-y1)/(x2-x1)
