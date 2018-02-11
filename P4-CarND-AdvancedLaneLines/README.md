@@ -174,7 +174,8 @@ turning_radius = (lradius+rradius)/2 # smooth out the radius
 ```  
 The details behind this function can be found at http://www.intmath.com/applications-differentiation/8-radius-curvature.php.
 
-* Finally, I found camera position
+* Finally, I found camera position.
+
 Origianally, I was using the following code to calculate the camera_pos.
 ```python
 left_mean = np.mean(leftx)
@@ -196,7 +197,7 @@ camera_pos = abs(640 - ((rightx_int+leftx_int)/2))
 
 There are 8 test images, my pipeline performs well on 6 of them, as shown below:
 
-<img src="output_images/good_output.jpg" width="960"/> 
+<img src="output_images/good_output.jpg" width="1260"/> 
 
 However when the pavement color is changing or on the shadowy part of the road in 2 of the images, my pipeline has little issue to accurately identify the lane lines (see the images below):
 
