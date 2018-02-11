@@ -176,18 +176,18 @@ The details behind this function can be found at http://www.intmath.com/applicat
 
 * Finally, I found camera position.
 
-Originally, I was using the following code to calculate the camera_pos.
-```python
-left_mean = np.mean(leftx)
-right_mean = np.mean(rightx)
-camera_pos = (combined.shape[1]/2)-np.mean([left_mean, right_mean])
-```  
- However the position estimate somehow depends on the road curving left or right. This is because the lane line base estimates are based on np.mean(leftx) and np.mean(rightx) which is a noise source and it has a bias towards the direction of the curve. I was suggested to use the already fitted polynomials which gives a less noisy, unbiased estimates for lane bases. So I changed the code to:
- ```python
-leftx_int = left_fit[0]*720**2 + left_fit[1]*720 + left_fit[2]
-rightx_int = right_fit[0]*720**2 + right_fit[1]*720 + right_fit[2]
-camera_pos = abs(640 - ((rightx_int+leftx_int)/2))
- ```
+    Originally, I was using the following code to calculate the camera_pos.
+    ```python
+    left_mean = np.mean(leftx)
+    right_mean = np.mean(rightx)
+    camera_pos = (combined.shape[1]/2)-np.mean([left_mean, right_mean])
+    ```  
+    However the position estimate somehow depends on the road curving left or right. This is because the lane line base estimates are based on np.mean(leftx) and np.mean(rightx) which is a noise source and it has a bias towards the direction of the curve. I was suggested to use the already fitted polynomials which gives a less noisy, unbiased estimates for lane bases. So I changed the code to:
+    ```python
+    leftx_int = left_fit[0]*720**2 + left_fit[1]*720 + left_fit[2]
+    rightx_int = right_fit[0]*720**2 + right_fit[1]*720 + right_fit[2]
+    camera_pos = abs(640 - ((rightx_int+leftx_int)/2))
+    ```
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
