@@ -56,11 +56,15 @@ There are two main steps to this process:
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps are contained in the #6-#9 code cells of the IPython notebook named "P4.ipynb".).  
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps are contained from #6 to #9 code cells of the IPython notebook named "P4.ipynb".).  
 
-* First, I defined a function that applies Sobel x or y, then takes an absolute value and applies a threshold. Here's an example of my output for this step.  
+* First, I defined a function named abs_sobel_thresh that applies Sobel x or y, then takes an absolute value and applies a threshold.(#6 code cell in "P4.ipynb") Here's an example of my output for this step.  
 
 <img src="output_images/Thresholded_x-derivated.jpg" width="430"/>      <img src="output_images/Thresholded_y-derivated.jpg" width="430"/>
+
+* Second, I defined a function named mag_thresh to return the magnitude of the gradient for a given sobel kernel size and threshold values.(#7 code cell in "P4.ipynb") Here's an example of my output for this step.  
+
+<img src="output_images/Thresholded_Magnitude.jpg" width="430"/>
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
