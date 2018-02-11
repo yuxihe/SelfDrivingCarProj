@@ -201,7 +201,7 @@ There are 8 test images, my pipeline performs well on 6 of them, as shown below:
 
 However when the pavement color is changing or on the shadowy part of the road in 2 of the images, my pipeline has little issue to accurately identify the lane lines (see the images below):
 
-<img src="output_images/bad_output.jpg" width="780"/>
+<img src="output_images/bad_output.jpg" width="840"/>
 
 ### Pipeline (video)
 
