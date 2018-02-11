@@ -74,34 +74,38 @@ I used a combination of color and gradient thresholds to generate a binary image
 
 <img src="output_images/Combined_S_L_thresholds.jpg" width="430"/> 
 
+* Finally, I combined all above thresholds effect together:
+
+```python
+combined = np.zeros_like(dir_binary)
+combined[((grady == 1) & (hls_binary == 1)) | ((mag_binary == 1) & (dir_binary == 1))] = 1 
+```
+
+<img src="output_images/combined_Images.jpg" width="430"/> 
+
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 The code for my perspective transform includes a function called `perspective_transform`, which appears in #10 code cell in `P4.ipynb`.  The `perspective_transform` function takes as inputs an image (`img`), as well as the perspective transform matrix (`M`), which can be computed by calling `cv2.getPerspectiveTransform()` function with source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
 
 ```python
-src_bottom_left = [500,525] 
-src_bottom_right = [800, 550]
-src_top_left = [600, 450]
-src_top_right = [675, 450]
-
-src = np.float32([src_bottom_left,src_bottom_right,src_top_right,src_top_left])
-
-dst_bottom_left = [320,720] 
-dst_bottom_right = [920, 720]
-dst_top_left = [320, 1]
-dst_top_right = [920, 1]
-
-dst = np.float32([dst_bottom_left,dst_bottom_right,dst_top_right,dst_top_left])
+apex, apey = 360, 258
+offset_far = 48
+offset_near = 2
+src = np.float32([[int(apex-offset_far),apey],
+                  [int(apex+offset_far),apey],
+                  [int(0+offset_near),390],
+                  [int(720-offset_near),390]])
+dst = np.float32([[0,0],[720,0],[0,405],[720,405]])
 ```
 
 This resulted in the following source and destination points:
 
 | Source        | Destination  | 
 |:-------------:|:------------:| 
-| 500, 525      | 320, 720     | 
-| 800, 550      | 920, 720     |
-| 600, 450      | 320, 1       | 
-| 675, 450      | 920, 1       |
+| 312, 258      |   0,   0     | 
+| 408, 258      | 720,   0     |
+|   2, 390      |   0, 405     | 
+| 718, 390      | 720, 405     |
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
@@ -117,18 +121,35 @@ In this function:
 * Secondly, I found the peak of the left and right halves of the histogram, which will be the starting point for the left and right lines.
 * Third, I created and initialized some variables and arrays for furture calculation, like the number of sliding windows, the height of windows, the width of the windows +/- margin, and so on.
 * Then, I stepped through the windows one by one:
-* * Identify window boundaries in x and y (and right and left)
-* * Draw the windows on the visualization image
-* * Identify the nonzero pixels in x and y within the window
-* * Append these indices to the lists
-* * If pixels found > minpix pixels, recenter next window on their mean position
+    * Identify window boundaries in x and y (and right and left)
+    * Draw the windows on the visualization image
+    * Identify the nonzero pixels in x and y within the window
+    * Append these indices to the lists
+    * If pixels found > minpix pixels, recenter next window on their mean position
 * Finally, I concatenate the arrays of indices, extract left and right line pixel positions and fit a second order polynomial to left and right lanes.
 
 <img src="output_images/out_img.jpg" width="430"/> 
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I defined a function named `find_3p_circle_radius` to finding the radius of the circle through 3 Points:
+* First, I defined conversions in x and y from pixels space to meters.(#17code cell in `P4.ipynb`)
+```python
+ym_per_pix = 30/405 # meters per pixel in y dimension
+xm_per_pix = 3.7/500 # meteres per pixel in x dimension
+```
+* Second, I defined y-value where we want radius of curvature. I chose 3 y-values(max, mean and min).
+```python  
+y_eval1 = np.max(yvals)
+y_eval2 = np.mean(yvals)
+y_eval3 = np.min(yvals)
+left_fitx_1 = left_fit[0]*y_eval1**2 + left_fit[1]*yvals + left_fit[2]
+left_fitx_2 = left_fit[0]*y_eval2**2 + left_fit[1]*yvals + left_fit[2]
+left_fitx_3 = left_fit[0]*y_eval3**2 + left_fit[1]*yvals + left_fit[2]
+right_fitx_1 = right_fit[0]*y_eval1**2 + right_fit[1]*yvals + right_fit[2]
+right_fitx_2 = right_fit[0]*y_eval2**2 + right_fit[1]*yvals + right_fit[2]
+right_fitx_3 = right_fit[0]*y_eval3**2 + right_fit[1]*yvals + right_fit[2]
+```    
+* Third, I defined a function named `find_3p_circle_radius` to finding the radius of the circle through 3 Points and used it to calculate steering angle and turning radius:
 
 <img src="output_images/3points.jpg" width="960"/> 
 
@@ -140,16 +161,33 @@ xc = (m1*m2*(y1-y3)+m2*(x1+x2)-m1*(x2+x3))/(2*(m2-m1))
 yc = -(xc-(x1+x2)/2)/m1+(y1+y2)/2
     
 Radius = np.sqrt((x2-xc)*(x2-xc)+(y2-yc)*(y2-yc))
+       
+lm1, lm2, lxc, lyc, lradius = find_3p_circle_radius(left_fitx_1,y_eval1,left_fitx_2,y_eval2,left_fitx_3,y_eval3,)
+l_steering_angle = 5*360/lxc # assume xc <> 0, xc and radius value is very close, xc will show the direction as well
+    
+    
+rm1, rm2, rxc, ryc, rradius = find_3p_circle_radius(right_fitx_1,y_eval1,right_fitx_2,y_eval2,right_fitx_3,y_eval3,)
+r_steering_angle = 5*360/rxc # assume xc <> 0, xc and radius value is very close, xc will show the direction as well
+    
+steering_angle = l_steering_angle + r_steering_angle
+turning_radius = (lradius+rradius)/2 # smooth out the radius
+```  
+The details behind this function can be found at http://www.intmath.com/applications-differentiation/8-radius-curvature.php.
 
-```
-
-The details of the above fomula can be found at https://www.intmath.com/applications-differentiation/8-radius-curvature.php.
+* Finally, I found camera position
+```python
+left_mean = np.mean(leftx)
+right_mean = np.mean(rightx)
+camera_pos = (combined.shape[1]/2)-np.mean([left_mean, right_mean])
+```  
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+* First, I created a blank image warp_zero, same size as the one applied to the pipeline and used `cv2.fillPoly()` to draw the closed area and curverad information and Camera Position. (#17code cell in `P4.ipynb`)
 
-![alt text][image6]
+* Then, I used inverted perspective transform matrix `Mi` and `cv2.warpPerspective()` to warp the filled polylines back to original view and combined the result with the original image.
+
+<img src="output_images/result_Images.jpg" width="720"/> 
 
 ---
 
@@ -157,7 +195,7 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](https://github.com/yuxihe/SelfDrivingCarProj/blob/master/P4-CarND-AdvancedLaneLines/project_video_output.mp4)
 
 ---
 
@@ -165,4 +203,12 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+* Combining all the new tools I learned from class and making improvment based on what I want to achieve. I think thie part is tricky because we are given so many useful tools and techniques in the class, besides getting farmilar with them, we also need to choose which one we want to apply in our project and which one we need to have further improvement in order to get the result we want.
+
+* Tuning the threshholds for each transform is very time consuming and sometimes can feel a little bit lost. One setting may work for one picture but not work for other pictures. 
+
+* The pipeline perfoms good on the project video. But it has some difficulty to handle challenge video. And completely fail on the harder challenge.
+
+To make if more robust:
+* Keep tracking the defined lanes. The curve would not change suddenly, event lose a few frames of image stream. 
+* Maybe can fit lane with more complex model, rather than polunomial function.
