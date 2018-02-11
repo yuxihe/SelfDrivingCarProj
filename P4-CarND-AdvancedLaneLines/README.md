@@ -197,12 +197,11 @@ camera_pos = abs(640 - ((rightx_int+leftx_int)/2))
 
 There are 8 test images, my pipeline performs well on 6 of them, as shown below:
 
-<img src="output_images/good_output.jpg" width="1260"/> 
+<img src="output_images/good_output.jpg" width="960"/> 
 
 However when the pavement color is changing or on the shadowy part of the road in 2 of the images, my pipeline has little issue to accurately identify the lane lines (see the images below):
 
-<img src="output_images/bad_output.jpg" width="960"/>
----
+<img src="output_images/bad_output.jpg" width="780"/>
 
 ### Pipeline (video)
 
