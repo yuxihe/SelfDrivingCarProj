@@ -113,9 +113,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 <img src="output_images/out_img.jpg" width="430"/> 
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
-
-![alt text][image5]
+* Then I defined a function named `find_3p_circle_radius` to
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
