@@ -107,7 +107,13 @@ I verified that my perspective transform was working as expected by drawing the 
 
 <img src="test_images/straight_lines2.jpg" width="430"/>    <img src="output_images/Warped_Images.jpg" width="430"/> 
 
-#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial.
+
+* First, after applying calibration, thresholding, and a perspective transform to a road image, I got a binary image where the lane lines stand out clearly. I first took a histogram along all the columns in the lower half of the image. With this histogram I am adding up the pixel values along each column in the image. In my thresholded binary image, pixels are either 0 or 1, so the two most prominent peaks in this histogram will be good indicators of the x-position of the base of the lane lines. I can use that as a starting point for where to search for the lines. From that point, I can use a sliding window, placed around the line centers, to find and follow the lines up to the top of the frame.
+
+* Second, I defined a function called `histogram_pixel_peaks` to locate the lane lines and fit a polynomial.(#14 code cell in `P4.ipynb`)
+
+<img src="output_images/out_img.jpg" width="430"/>
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
