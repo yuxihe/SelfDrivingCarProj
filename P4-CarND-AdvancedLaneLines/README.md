@@ -81,7 +81,7 @@ combined = np.zeros_like(dir_binary)
 combined[((grady == 1) & (hls_binary == 1)) | ((mag_binary == 1) & (dir_binary == 1))] = 1 
 ```
 
-<img src="output_images/combined_Images.jpg" width="430"/> 
+<img src="output_images/combined_Images.jpg" width="960"/> 
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
@@ -187,7 +187,7 @@ camera_pos = (combined.shape[1]/2)-np.mean([left_mean, right_mean])
 
 * Then, I used inverted perspective transform matrix `Mi` and `cv2.warpPerspective()` to warp the filled polylines back to original view and combined the result with the original image.
 
-<img src="output_images/result_Images.jpg" width="720"/> 
+<img src="output_images/result_Images.jpg" width="960"/> 
 
 ---
 
