@@ -176,7 +176,7 @@ The details behind this function can be found at http://www.intmath.com/applicat
 
 * Finally, I found camera position.
 
-Origianally, I was using the following code to calculate the camera_pos.
+Originally, I was using the following code to calculate the camera_pos.
 ```python
 left_mean = np.mean(leftx)
 right_mean = np.mean(rightx)
