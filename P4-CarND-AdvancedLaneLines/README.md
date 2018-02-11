@@ -70,6 +70,9 @@ I used a combination of color and gradient thresholds to generate a binary image
 
 <img src="output_images/Thresholded_Grad_Dir.jpg" width="430"/>
 
+* Then, I defined a function named hls_select that thresholds the combination of the S-channel and L-channel in HLS.(#9 code cell in "P4.ipynb") Here's an example of my output for this step. 
+
+<img src="output_images/Combined_S_L_thresholds.jpg" width="430"/> 
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
