@@ -244,8 +244,8 @@ I did the following steps to improve my pipeline to have a better performance on
 
 * Tuning the threshholds for each transform is very time consuming and sometimes can feel a little bit lost. One setting may work for one picture but not work for other pictures. 
 
-* The pipeline perfoms good on the project video. But it has some difficulty to handle challenge video. And completely fail on the harder challenge.
+* The pipeline perfoms good on the project video and challenge video. But it completely fail on the harder challenge.
 
 To make if more robust:
-* Keep tracking the defined lanes. The curve would not change suddenly, event lose a few frames of image stream. 
 * Maybe can fit lane with more complex model, rather than polunomial function.
+* Twick pipeline with different road conditions, like different camera angle, or double yellow lane line.
