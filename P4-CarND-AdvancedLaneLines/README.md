@@ -21,11 +21,13 @@ The goals / steps of this project are the following:
 [image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
+## Rubric Points
+
 #### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/571/view) individually and describe how I addressed each point in my implementation.  
 
 ---
 
-### Writeup
+## Writeup
 
 ### Camera Calibration
 
