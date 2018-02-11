@@ -113,11 +113,24 @@ I verified that my perspective transform was working as expected by drawing the 
 
 <img src="output_images/out_img.jpg" width="430"/> 
 
-* Then I defined a function named `find_3p_circle_radius` to
-
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+I defined a function named `find_3p_circle_radius` to finding the radius of the circle through 3 Points:
+
+<img src="output_images/3points.jpg" width="430"/> 
+
+```python
+m1 = (y2-y1)/(x2-x1)
+m2 = (y3-y2)/(x3-x2)
+    
+xc = (m1*m2*(y1-y3)+m2*(x1+x2)-m1*(x2+x3))/(2*(m2-m1))
+yc = -(xc-(x1+x2)/2)/m1+(y1+y2)/2
+    
+Radius = np.sqrt((x2-xc)*(x2-xc)+(y2-yc)*(y2-yc))
+
+```
+
+The details of the above fomula can be found at https://www.intmath.com/applications-differentiation/8-radius-curvature.php.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
