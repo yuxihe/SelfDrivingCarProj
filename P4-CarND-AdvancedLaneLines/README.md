@@ -248,4 +248,4 @@ I did the following steps to improve my pipeline to have a better performance on
 
 To make if more robust:
 * Maybe can fit lane with more complex model, rather than polunomial function.
-* Twick pipeline with different road conditions, like different camera angle, or double yellow lane line.
+* Tweak pipeline with different road conditions, like different camera angle, or double yellow lane line.
