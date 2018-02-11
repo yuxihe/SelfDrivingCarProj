@@ -132,10 +132,10 @@ In this function:
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-* First, I defined conversions in x and y from pixels space to meters.(#17code cell in `P4.ipynb`)
+* First, I defined conversions in x and y from pixels space to meters.(#17 code cell in `P4.ipynb`)
 ```python
-ym_per_pix = 30/405 # meters per pixel in y dimension
-xm_per_pix = 3.7/500 # meteres per pixel in x dimension
+ym_per_pix = 25/720 # meters per pixel in y dimension
+xm_per_pix = 3.7/675 # meteres per pixel in x dimension
 ```
 * Second, I defined y-value where we want radius of curvature. I chose 3 y-values(max, mean and min).
 ```python  
@@ -175,20 +175,32 @@ turning_radius = (lradius+rradius)/2 # smooth out the radius
 The details behind this function can be found at http://www.intmath.com/applications-differentiation/8-radius-curvature.php.
 
 * Finally, I found camera position
+Origianally, I was using the following code to calculate the camera_pos.
 ```python
 left_mean = np.mean(leftx)
 right_mean = np.mean(rightx)
 camera_pos = (combined.shape[1]/2)-np.mean([left_mean, right_mean])
 ```  
+ However the position estimate somehow depends on the road curving left or right. This is because the lane line base estimates are based on np.mean(leftx) and np.mean(rightx) which is a noise source and it has a bias towards the direction of the curve. I was suggested to use the already fitted polynomials which gives a less noisy, unbiased estimates for lane bases. So I changed the code to:
+ ```python
+leftx_int = left_fit[0]*720**2 + left_fit[1]*720 + left_fit[2]
+rightx_int = right_fit[0]*720**2 + right_fit[1]*720 + right_fit[2]
+camera_pos = abs(640 - ((rightx_int+leftx_int)/2))
+ ```
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-* First, I created a blank image warp_zero, same size as the one applied to the pipeline and used `cv2.fillPoly()` to draw the closed area and curverad information and Camera Position. (#17code cell in `P4.ipynb`)
+* First, I created a blank image warp_zero, same size as the one applied to the pipeline and used `cv2.fillPoly()` to draw the closed area and curverad information and Camera Position. (#17 code cell in `P4.ipynb`)
 
 * Then, I used inverted perspective transform matrix `Mi` and `cv2.warpPerspective()` to warp the filled polylines back to original view and combined the result with the original image.
 
-<img src="output_images/result_Images.jpg" width="960"/> 
+There are 8 test images, my pipeline performs well on 6 of them, as shown below:
 
+<img src="output_images/good_output.jpg" width="960"/> 
+
+However when the pavement color is changing or on the shadowy part of the road in 2 of the images, my pipeline has little issue to accurately identify the lane lines (see the images below):
+
+<img src="output_images/bad_output.jpg" width="960"/>
 ---
 
 ### Pipeline (video)
@@ -197,6 +209,31 @@ camera_pos = (combined.shape[1]/2)-np.mean([left_mean, right_mean])
 
 Here's a [link to my video result](https://github.com/yuxihe/SelfDrivingCarProj/blob/master/P4-CarND-AdvancedLaneLines/project_video_output.mp4)
 
+I did the following steps to improve my pipeline to have a better performance on the testing video:
+
+* First,  I defined a Line() class to keep track of all the interesting parameters measured from frame to frame, which will make it easier when previous film frames already have successfully identified lane boundaries.(#19 code cell in `P4.ipynb`)
+    * Inside the class I defined several functions which will be used to detect the pixels belonging to each lane line.
+        * `__init__(self)`: stores all useful parameters from frame to frame.
+        * `found_search`: this function will be called when the lane lines have been detected in the previous frame. It uses a sliding window to search for lane pixels in close proximity (+/- 25 pixels in the x direction) around the previous detected polynomial. 
+        * `blind_search`: this function will be applied in the first few frames and/or if the lane was not successfully detected in the previous frame. It uses a slinding window approach to detect peaks in a histogram of the binary thresholded image. Pixels in close proimity to the detected peaks are considered to belong to the lane lines.
+        * `radius_of_curvature`: measures Radius of Curvature for each lane line in meters.
+        * `get_intercepts`: calculates intercepts to extend the polynomial to the top and bottom of warped image
+* Second, I fine tuned my thresholding methods and even implemented new methods. (#20 code cell in `P4.ipynb`)
+
+    Previously I was using S Channel from the HLS color space and combined with L Channel from the LUV color space. Now I used combined L channel, R Channel from RGB space, and the B channel from the Lab color space. The reason for this is because:
+    * The R Channel from RGB space, with a min threshold of 225 and a max threshold of 255, did a very good job on identifying both yellow and white lines. It did not as good as b channel in terms of the ability on yellow lines.
+    * The L Channel from the LUV color space, with a min threshold of 225 and a max threshold of 255, did an almost perfect job of picking up the white lane lines, but completely ignored the yellow lines.
+    * The B channel from the Lab color space, with a min threshold of 155 and an upper threshold of 200, did a better job than the S channel in identifying the yellow lines, but completely ignored the white lines.
+    * Combining the above 3 channels does a great job of highlighting almost all of the white and yellow lane lines. The reason I did not select S because the other 3 has completely cover what S channel provides plus S channel contains more noise than other ones.
+
+* Finally, I implemented the new pipeline for video processing:
+    * step 1. Camera calibration and distort correction
+    * step 2. Perform perspective transform
+    * step 3. Generate binary thresholded images
+    * step 4. Perform blind search or search around previous polynomial for lane line and calculate polynomial fit.
+    * step 5. Calculate intercepts, append them to stored arrays, then average them across n frames and recalculate polynomial.
+    * step 6. Compute radius of curvature for each lane in meters.
+    * step 7. Calculate the vehicle position relative to the center of the lane.
 ---
 
 ### Discussion
