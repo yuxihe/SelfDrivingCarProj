@@ -52,7 +52,7 @@ The following right image shows an example of the result after applying distorti
 There are two main steps to this process: 
 
 * Use chessboard images to obtain image points and object points, 
-* And then use the OpenCV functions cv2.calibrateCamera() and cv2.undistort() to compute the calibration and undistortion.
+* And then use the OpenCV functions `cv2.calibrateCamera()` and `cv2.undistort()` to compute the calibration and undistortion.
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
@@ -105,7 +105,7 @@ This resulted in the following source and destination points:
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-<img src="output_images/Warped_Images.jpg" width="430"/> 
+<img src="test_images/straight_lines2.jpg" width="430"/>    <img src="output_images/Warped_Images.jpg" width="430"/> 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
