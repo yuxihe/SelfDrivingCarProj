@@ -77,10 +77,10 @@ from keras.layers import Flatten, Dense, Lambda, Convolution2D, MaxPooling2D, Cr
 
 # the NVIDIA Autonomous Car Group model implementation
 model = Sequential()
-# data normalization
-model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(row,col,ch)))
 # trim image to only see section with road
-model.add(Cropping2D(cropping=((70,25), (0,0))))
+model.add(Cropping2D(cropping=((70,25), (0,0)), input_shape=(row,col,ch)))
+# data normalization
+model.add(Lambda(lambda x: x / 255.0 - 0.5))
 model.add(Convolution2D(24,(5,5),strides=(2,2),activation="relu"))
 model.add(Convolution2D(36,(5,5),strides=(2,2),activation="relu"))
 model.add(Convolution2D(48,(5,5),strides=(2,2),activation="relu"))
