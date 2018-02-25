@@ -64,16 +64,16 @@ I used StandScaler() to normalize extracted features. And we could see before an
 In this project linear SVM is used and provided an acceptable testing accuracy. 
 80% of dataset has been used a training set and 20% as testing set. We shuffle data before training to avoid algortihm remembering the ordering. I tried different combination of HoG settings as well color space for feature extraction. The different option testing accuracies are included below: 
 
-| Option | Color Space | Spatial_size |Hist_bins|  Orientations | Pixels_per_cell | Cells_per_block | HOG channel | Time for Train | Testing Accuracy |
-|:------:|:-----------:|:------------:|:-------:|:-------------:|:---------------:|----------------:|------------:|---------------:|-----------------:|
-| 0   |  RGB   | (16,16) | 32 | 8 | 7 | 2 | All | 49.82s | 97.2% |
-| 1   |  HSV   | (16,16) | 32 | 8 | 7 | 2 | All | 48.28s | 98.2% |
-| 2   |  HLS   | (16,16) | 32 | 9 | 8 | 2 | All | 37.14s | 98.1% |
-| 3   |  YCrCb | (32,32) | 32 | 9 | 7 | 2 | All | 74.91s | 98.5% |
-| 4   |  YCrCb | (32,32) | 16 | 8 | 7 | 2 | All | 8.39s  | 98.9% |
-| 5   |  YCrCb | (32,32) | 32 | 8 | 7 | 2 | All | 21.4s  | 99.1% |
-| 6   |  YCrCb | (16,16) | 32 | 8 | 8 | 2 | All | 15.3s  | 98.7% |
-| 7   |  YCrCb | (16,16) | 32 | 8 | 7 | 2 | All | 18.6s  | 98.8% |
+| Option | Color Space | Spatial_size |Hist_bins|  Orientations | Pixels_per_cell | Cells_per_block | HOG channel | Test Accuracy |
+|:------:|:-----------:|:------------:|:-------:|:-------------:|:---------------:|----------------:|------------:|--------------:|
+| 0   |  RGB   | (16,16) | 32 | 8 | 7 | 2 | All | 97.2% |
+| 1   |  HSV   | (16,16) | 32 | 8 | 7 | 2 | All | 98.2% |
+| 2   |  HLS   | (16,16) | 32 | 9 | 8 | 2 | All | 98.1% |
+| 3   |  YCrCb | (32,32) | 32 | 9 | 7 | 2 | All | 98.5% |
+| 4   |  YCrCb | (32,32) | 16 | 8 | 7 | 2 | All | 98.8% |
+| 5   |  YCrCb | (32,32) | 32 | 8 | 7 | 2 | All | 98.9% |
+| 6   |  YCrCb | (16,16) | 32 | 8 | 8 | 2 | All | 98.7% |
+| 7   |  YCrCb | (16,16) | 32 | 8 | 7 | 2 | All | 98.3% |
 
 Hence we select option 5 which use ColorSpace of YCrCb and Spatial_size (32,32), 32 Hist bins, orient 8, Pixels_per_cell 7, Cell_per_block of 2, HOG channel All. 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
