@@ -124,31 +124,17 @@ The code for this step is contained in the 15th, 16th, 17th and 18th code cells 
 As expected there are some false positive windows and multiple detections. 
 - I use heatmap for the recurring detection and apply threshold to filter out low recurrence which are more likely false positive. 
 - I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.
-Example of test image under heatmap is like
-
-<img src="output_images/Heatmap.JPG" width="480"/>
+Here is a test image and it corresponding heatmap:
 
 <img src="output_images/falsePositive.JPG" width="840"/>
 
-I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from the test image:
 
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
+<img src="output_images/Heatmap.JPG" width="480"/>
+
+Here's an example result showing the heatmap from a test image, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid:
 
 <img src="output_images/Bbox.JPG" width="840"/>
-
-### Here are six frames and their corresponding heatmaps:
-
-![alt text][image5]
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
-
-
----
 
 ### Discussion
 
