@@ -13,7 +13,7 @@ The goals / steps of this project are the following:
 #### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/513/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-### Basic steps of this project:
+## Basic steps of this project:
 
 ### Import packages and define useful functions
 
@@ -38,9 +38,16 @@ I started by reading in all the `vehicle` and `non-vehicle` images. There are 87
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
-The code for this step is contained in the 2rd and 5th code cells of the IPython notebook.  
+The code for this step is contained in the 5th code cells of the IPython notebook.  
 
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
+I used HoG (Histogram of oriented gradients), spatial_features, color histogram to extract image features. 
+- spatial feature (reduce the image size): 
+`spatial_features = bin_spatial(feature_image, size=spatial_size)`
+- color histogram feature (np.histogram on color image):
+`hist_features = color_hist(feature_image, nbins=hist_bins)`
+- HoG feature (get histogram of oriented gradient after converting image to certain color space onto every block and cells, hog is in `skimage.feature` package):
+`features, hog_image = hog(img, orientations=orient, pixels_per_cell=(pix_per_cell, pix_per_cell), cells_per_block=(cell_per_block, cell_per_block), transform_sqrt=True, visualise=vis, feature_vector=feature_vec)`
+- I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
 Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(7, 7)` and `cells_per_block=(2, 2)`:
 
