@@ -119,19 +119,22 @@ Here's a [link to the project video result](https://github.com/yuxihe/SelfDrivin
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-The code for this step is contained in the 15th code cells of the IPython notebook.
+The code for this step is contained in the 15th, 16th, 17th and 18th code cells of the IPython notebook.
 
-As expected there are some false positive windows and multiple detections. I use heatmap for the recurring detection and apply threshold to filter out low recurrence which are more likely false positive. I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.
-
+As expected there are some false positive windows and multiple detections. 
+- I use heatmap for the recurring detection and apply threshold to filter out low recurrence which are more likely false positive. 
+- I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.
 Example of test image under heatmap is like
 
-<img src="output_images/Heatmap.JPG" width="840"/>
+<img src="output_images/Heatmap.JPG" width="480"/>
 
 <img src="output_images/falsePositive.JPG" width="840"/>
 
 I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
+
+<img src="output_images/Bbox.JPG" width="840"/>
 
 ### Here are six frames and their corresponding heatmaps:
 
