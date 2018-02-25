@@ -124,7 +124,8 @@ The code for this step is contained in the 15th, 16th, 17th and 18th code cells 
 As expected there are some false positive windows and multiple detections. 
 - I use heatmap for the recurring detection and apply threshold to filter out low recurrence which are more likely false positive. 
 - I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.
-Here is a test image and it corresponding heatmap:
+
+Here are 3 test images and their corresponding heatmaps:
 
 <img src="output_images/falsePositive.JPG" width="840"/>
 
@@ -136,9 +137,21 @@ Here's an example result showing the heatmap from a test image, the result of `s
 
 <img src="output_images/Bbox.JPG" width="840"/>
 
+### The files for submission: 
+* P5.ipynb (IPython notebook)
+* folder `output_images` (output images)
+* test_video_out.mp4, project_video_out.mp4 (output video mp4 files)
+* README.md (The writeup includes a statement and supporting images that explain how each rubric item was addressed, and specifically where in the code each step was handled.)
+
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+In this project, I chose to use sliding window search, which has to extract hog features for every search window hence it runs slow. Instead, I can improve my pipeling by using Hog Sub-sampling Window Search, which only has to extract hog features once, for each of a small set of predetermined window sizes (defined by a scale argument), and then can be sub-sampled to get all of its overlaying windows.
+
+Choosing resonable parameters for HOG features is also tricky and time consuming. I'm not sure if the Parameter Tuning in Scikit-learn can be applied also to do an automatic parameter search for HOG features. Due to the tight schedule, I didn't spend time on that and chose to tune the parameters manually.
+
+As we could see from the output video, the vehicle detection is still not perfect yet as it sometimes gives pretty large bounding box onto the car which in practice means low accuracy of knowing where exactly the car is. Also there are still some false positive in some cases especially some road rails. An improvement could be using smaller sliding windows or apply reasonalbe threshold on heatmap. 
+
+Another further possible improvement is to achieve better testing accuracy using deep learning method instead of linear SVM.
 
