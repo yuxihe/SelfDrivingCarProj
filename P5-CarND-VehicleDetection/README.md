@@ -89,15 +89,26 @@ I trained a linear SVM using 80% of dataset as training set and 20% as testing s
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
+The code for this step is contained in the 12th code cells of the IPython notebook. 
+
 I tried different scales for sliding window search. And here is an example using the search window size = `xy_window=(96, 96)`,  and overlap = `xy_overlap=(0.5, 0.5)`:
 
 <img src="output_images/Slide window example.JPG" width="840"/>
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on six scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector. X direction cover from leftmost to rightmost, while y direction covers from 380 to 500. I used overlay of 75% as a default. I chose to search smaller windows mainly at the horizon for smaller car images as they will appear far away. which provided a nice result. Here are some example images:
+The code for this step is contained in the 13th and 14th code cells of the IPython notebook. 
 
-![alt text][image4]
+Ultimately,
+- I searched on six scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector:
+- The six search windows are: `XY_window = [(240, 240), (200, 200), (160, 160), (120, 120), (80, 80), (60, 60)]`
+- X direction cover from leftmost to rightmost, while y direction covers from 380 to 500. 
+- I used overlay of 75% as a default. 
+- I chose to search smaller windows mainly at the horizon for smaller car images as they will appear far away. which provided a nice result. 
+
+Here are some example images:
+
+<img src="output_images/multiple windows.JPG" width="840"/>
 ---
 
 ### Video Implementation
