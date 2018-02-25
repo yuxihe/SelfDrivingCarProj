@@ -109,17 +109,27 @@ Ultimately,
 Here are some example images:
 
 <img src="output_images/multiple windows.JPG" width="840"/>
----
 
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
 
+Here's a [link to the test video result](https://github.com/yuxihe/SelfDrivingCarProj/blob/master/P5-CarND-VehicleDetection/test_video_out.mp4)
+Here's a [link to the project video result](https://github.com/yuxihe/SelfDrivingCarProj/blob/master/P5-CarND-VehicleDetection/project_video_out.mp4)
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+The code for this step is contained in the 15th code cells of the IPython notebook.
+
+As expected there are some false positive windows and multiple detections. I use heatmap for the recurring detection and apply threshold to filter out low recurrence which are more likely false positive. I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.
+
+Example of test image under heatmap is like
+
+<img src="output_images/Heatmap.JPG" width="840"/>
+
+<img src="output_images/falsePositive.JPG" width="840"/>
+
+I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
