@@ -44,10 +44,13 @@ I used HoG (Histogram of oriented gradients), spatial_features, color histogram 
 1. spatial feature (reduce the image size): `spatial_features = bin_spatial(feature_image, size=spatial_size)`
 2. color histogram feature (np.histogram on color image):`hist_features = color_hist(feature_image, nbins=hist_bins)`
    - I grabbed random images from each of the two classes and displayed them to get a feel for what the `color_hist()` output looks like. And here is an example:
+
    <img src="output_images/ColorHist.JPG" width="840"/> 
+
 3. HoG feature (get histogram of oriented gradient after converting image to certain color space onto every block and cells, hog is in `skimage.feature` package):
 `features, hog_image = hog(img, orientations=orient, pixels_per_cell=(pix_per_cell, pix_per_cell), cells_per_block=(cell_per_block, cell_per_block), transform_sqrt=True, visualise=vis, feature_vector=feature_vec)`
    - I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. And here is an example using the `YCrCb` color space and HOG parameters of `orientations=8` and `pixels_per_cell=(7, 7)`:
+
    <img src="output_images/CarHOG.JPG" width="840"/> 
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
@@ -55,9 +58,24 @@ I used HoG (Histogram of oriented gradients), spatial_features, color histogram 
 Then, I normalize features and use machine learning method (SVM in this task) to train dataset using optimized parameters for extracting features.
 
 I used StandScaler() to normalize extracted features. And we could see before and after normalization:
-<img src="output_images/Normalize.JPG" width="840"/> 
-I tried various combinations of parameters and...
 
+<img src="output_images/Normalize.JPG" width="840"/> 
+
+In this project linear SVM is used and provided an acceptable testing accuracy. 
+80% of dataset has been used a training set and 20% as testing set. We shuffle data before training to avoid algortihm remembering the ordering. I tried different combination of HoG settings as well color space for feature extraction. The different option testing accuracies are included below: 
+
+| Option | Color Space | Spatial_size |Hist_bins|  Orientations | Pixels_per_cell | Cells_per_block | HOG channel | Time for Train | Testing Accuracy |
+|:------:|:-----------:|:------------:|:-------:|:-------------:|:---------------:|----------------:|------------:|---------------:|-----------------:|
+| 0   |  RGB   | (16,16) | 32 | 8 | 7 | 2 | All | 49.82s | 97.2% |
+| 1   |  HSV   | (16,16) | 32 | 8 | 7 | 2 | All | 48.28s | 98.2% |
+| 2   |  HLS   | (16,16) | 32 | 9 | 8 | 2 | All | 37.14s | 98.1% |
+| 3   |  YCrCb | (32,32) | 32 | 9 | 7 | 2 | All | 74.91s | 98.5% |
+| 4   |  YCrCb | (32,32) | 16 | 8 | 7 | 2 | All | 8.39s  | 98.9% |
+| 5   |  YCrCb | (32,32) | 32 | 8 | 7 | 2 | All | 21.4s  | 99.1% |
+| 6   |  YCrCb | (16,16) | 32 | 8 | 8 | 2 | All | 15.3s  | 98.7% |
+| 7   |  YCrCb | (16,16) | 32 | 8 | 7 | 2 | All | 18.6s  | 98.8% |
+
+Hence we select option 5 which use ColorSpace of YCrCb and Spatial_size (32,32), 32 Hist bins, orient 8, Pixels_per_cell 7, Cell_per_block of 2, HOG channel All. 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
 I trained a linear SVM using...
