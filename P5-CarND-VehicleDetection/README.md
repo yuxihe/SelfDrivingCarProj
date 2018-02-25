@@ -38,20 +38,24 @@ I started by reading in all the `vehicle` and `non-vehicle` images. There are 87
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
-The code for this step is contained in the 5th code cells of the IPython notebook.  
+The code for this step is contained in the 2rd, 5th and 6th code cells of the IPython notebook.  
 
 I used HoG (Histogram of oriented gradients), spatial_features, color histogram to extract image features. 
 1. spatial feature (reduce the image size): `spatial_features = bin_spatial(feature_image, size=spatial_size)`
 2. color histogram feature (np.histogram on color image):`hist_features = color_hist(feature_image, nbins=hist_bins)`
-   - I grabbed random images from each of the two classes and displayed them to get a feel for what the `color_hist()` output looks like.And here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(7, 7)` and `cells_per_block=(2, 2)`:
+   - I grabbed random images from each of the two classes and displayed them to get a feel for what the `color_hist()` output looks like. And here is an example:
    <img src="output_images/ColorHist.JPG" width="840"/> 
 3. HoG feature (get histogram of oriented gradient after converting image to certain color space onto every block and cells, hog is in `skimage.feature` package):
 `features, hog_image = hog(img, orientations=orient, pixels_per_cell=(pix_per_cell, pix_per_cell), cells_per_block=(cell_per_block, cell_per_block), transform_sqrt=True, visualise=vis, feature_vector=feature_vec)`
-   - I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. And here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(7, 7)` and `cells_per_block=(2, 2)`:
-   <img src="output_images/HOG.JPG" width="840"/> 
+   - I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. And here is an example using the `YCrCb` color space and HOG parameters of `orientations=8` and `pixels_per_cell=(7, 7)`:
+   <img src="output_images/CarHOG.JPG" width="840"/> 
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
+Then, I normalize features and use machine learning method (SVM in this task) to train dataset using optimized parameters for extracting features.
+
+I used StandScaler() to normalize extracted features. And we could see before and after normalization:
+<img src="output_images/Normalize.JPG" width="840"/> 
 I tried various combinations of parameters and...
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
