@@ -64,8 +64,8 @@ I used StandScaler() to normalize extracted features. And we could see before an
 In this project linear SVM is used and provided an acceptable testing accuracy. 
 80% of dataset has been used a training set and 20% as testing set. We shuffle data before training to avoid algortihm remembering the ordering. I tried different combination of HoG settings as well color space for feature extraction. The different option testing accuracies are included below: 
 
-| Option | Color Space | Spatial_size |Hist_bins|  Orientations | Pixels_per_cell | Cells_per_block | HOG channel | Test Accuracy |
-|:------:|:-----------:|:------------:|:-------:|:-------------:|:---------------:|----------------:|------------:|--------------:|
+| Op | Color Space | Spatial_size |Hist_bins|  Orientations | Pixels_per_cell | Cells_per_block | HOG channel | Test Accuracy |
+|:--:|:-----------:|:------------:|:-------:|:-------------:|:---------------:|----------------:|------------:|--------------:|
 | 0   |  RGB   | (16,16) | 32 | 8 | 7 | 2 | All | 97.2% |
 | 1   |  HSV   | (16,16) | 32 | 8 | 7 | 2 | All | 98.2% |
 | 2   |  HLS   | (16,16) | 32 | 9 | 8 | 2 | All | 98.1% |
