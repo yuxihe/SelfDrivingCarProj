@@ -13,17 +13,32 @@ The goals / steps of this project are the following:
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/513/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-### Writeup / README
+### Basic steps of this project:
+
+### Import packages and define useful functions
+
+In the first 2 code cells of the IPython notebook, I import packages and define the following useful functions:
+1. Define a function to return HOG features and visualization : get_hog_features()
+2. Define a function to compute binned color features: bin_spatial()
+3. Define a function to compute color histogram features : color_hist()
+4. Define a function to extract features from a list of images: extract_features()
+5. Define a function to return slide search windows : slide_window()
+6. Define a function to draw bounding boxes : draw_boxes()
+7. Define a function to extract features from a single image window : single_img_features()
+8. Define a function to search the windows for specified features : search_windows()
+
+### Read In vehicle and non-vehicle dataset
+
+Here are links to the labeled data for [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) examples used to train the classifier.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html), the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/), and examples extracted from the project video itself.
+
+I started by reading in all the `vehicle` and `non-vehicle` images. There are 8792 images for vehicles and 8968 images for non-vehicles. Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+<img src="examples/car_not_car.png" width="840"/>
 
 ### Histogram of Oriented Gradients (HOG)
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
 The code for this step is contained in the 2rd and 5th code cells of the IPython notebook.  
-
-I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
-
-<img src="examples/car_not_car.png" width="840"/>
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
