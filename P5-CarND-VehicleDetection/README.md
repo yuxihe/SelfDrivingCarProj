@@ -55,6 +55,8 @@ I used HoG (Histogram of oriented gradients), spatial_features, color histogram 
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
+The code for this step is contained in the 8th, 9th and 10th code cells of the IPython notebook.  
+
 Then, I normalize features and use machine learning method (SVM in this task) to train dataset using optimized parameters for extracting features.
 
 I used StandScaler() to normalize extracted features. And we could see before and after normalization:
@@ -62,7 +64,8 @@ I used StandScaler() to normalize extracted features. And we could see before an
 <img src="output_images/Normalize.JPG" width="840"/> 
 
 In this project linear SVM is used and provided an acceptable testing accuracy. 
-80% of dataset has been used a training set and 20% as testing set. We shuffle data before training to avoid algortihm remembering the ordering. I tried different combination of HoG settings as well color space for feature extraction. The different option testing accuracies are included below: 
+
+I tried different combination of HoG settings as well color space for feature extraction. The different option testing accuracies are included below: 
 
 | Op | Color Space | Spatial_size |Hist_bins|  Orientations | Pixels_per_cell | Cells_per_block | HOG channel | Test Accuracy |
 |:--:|:-----------:|:------------:|:-------:|:-------------:|:---------------:|----------------:|------------:|--------------:|
@@ -75,22 +78,24 @@ In this project linear SVM is used and provided an acceptable testing accuracy.
 | 6   |  YCrCb | (16,16) | 32 | 8 | 8 | 2 | All | 98.7% |
 | 7   |  YCrCb | (16,16) | 32 | 8 | 7 | 2 | All | 98.3% |
 
-Hence we select option 5 which use ColorSpace of YCrCb and Spatial_size (32,32), 32 Hist bins, orient 8, Pixels_per_cell 7, Cell_per_block of 2, HOG channel All. 
+Hence I chose option 5 which use ColorSpace of YCrCb and Spatial_size (32,32), 32 Hist bins, orient 8, Pixels_per_cell 7, Cell_per_block of 2, HOG channel All. 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using...
+The code for this step is contained in the 10th code cells of the IPython notebook.  
+
+I trained a linear SVM using 80% of dataset as training set and 20% as testing set. I shuffled data before training to avoid algortihm remembering the ordering. 
 
 ### Sliding Window Search
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+I tried different scales for sliding window search. And here is an example using the search window size = `xy_window=(96, 96)`,  and overlap = `xy_overlap=(0.5, 0.5)`:
 
-![alt text][image3]
+<img src="output_images/Slide window example.JPG" width="840"/>
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I searched on six scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector. X direction cover from leftmost to rightmost, while y direction covers from 380 to 500. I used overlay of 75% as a default. I chose to search smaller windows mainly at the horizon for smaller car images as they will appear far away. which provided a nice result. Here are some example images:
 
 ![alt text][image4]
 ---
