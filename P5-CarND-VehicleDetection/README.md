@@ -100,9 +100,10 @@ I tried different scales for sliding window search. And here is an example using
 The code for this step is contained in the 13th and 14th code cells of the IPython notebook. 
 
 Ultimately,
-- I searched on six scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector:
-- The six search windows are: `XY_window = [(240, 240), (200, 200), (160, 160), (120, 120), (80, 80), (60, 60)]`
-- X direction cover from leftmost to rightmost, while y direction covers from 380 to 500. 
+- I searched on 3 scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector:
+- The 3 search windows are: `XY_window = [(128, 128), (96, 96), (64, 64)]`
+- X direction cover from leftmost to rightmost
+- Y direction covers from `yStartStop = [(380, 604), (390, 534), (400, 480)]` corresponding for each search window respectively. 
 - I used overlay of 75% as a default. 
 - I chose to search smaller windows mainly at the horizon for smaller car images as they will appear far away. which provided a nice result. 
 
