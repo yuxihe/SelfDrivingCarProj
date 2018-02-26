@@ -123,7 +123,7 @@ Here's a [link to the project video result](https://github.com/yuxihe/SelfDrivin
 The code for this step is contained in the 15th, 16th, 17th and 18th code cells of the IPython notebook.
 
 As expected there are some false positive windows and multiple detections. 
-- I used heatmap for the recurring detection and apply threshold to filter out low recurrence which are more likely false positive. 
+- I used heatmap for the recurring detection and applied threshold to filter out low recurrence which are more likely false positive. 
 - I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.
 
 Here are 3 test images, with the search windows and their corresponding heatmaps:
@@ -148,7 +148,7 @@ Here's an example result showing the heatmap from a test image, the result of `s
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-In this project, I chose to use sliding window search, which has to extract hog features for every search window hence it runs slow. Instead, I can improve my pipeling by using Hog Sub-sampling Window Search, which only has to extract hog features once, for each of a small set of predetermined window sizes (defined by a scale argument), and then can be sub-sampled to get all of its overlaying windows.
+In this project, I chose to use sliding window search, which has to extract HOG features for every search window hence it runs slow. Instead, I can improve my pipeling by using HOG Sub-sampling Window Search, which only has to extract HOG features once, for each of a small set of predetermined window sizes (defined by a scale argument), and then can be sub-sampled to get all of its overlaying windows.
 
 Choosing resonable parameters for HOG features is also tricky and time consuming. I'm not sure if the Parameter Tuning in Scikit-learn can be applied also to do an automatic parameter search for HOG features. Due to the tight schedule, I didn't spend time on that and chose to tune the parameters manually.
 
