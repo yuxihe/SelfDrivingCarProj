@@ -17,7 +17,7 @@ The goals / steps of this project are the following:
 
 ### Import packages and define useful functions
 
-In the first 2 code cells of the IPython notebook, I import packages and define the following useful functions:
+In the first 2 code cells of the IPython notebook, I imported packages and defined the following useful functions:
 1. Define a function to return HOG features and visualization : get_hog_features()
 2. Define a function to compute binned color features: bin_spatial()
 3. Define a function to compute color histogram features : color_hist()
@@ -40,14 +40,14 @@ I started by reading in all the `vehicle` and `non-vehicle` images. There are 87
 
 The code for this step is contained in the 2rd, 5th and 6th code cells of the IPython notebook.  
 
-I used HoG (Histogram of oriented gradients), spatial_features, color histogram to extract image features. 
+I used HOG (Histogram of oriented gradients), spatial_features, color histogram to extract image features. 
 1. spatial feature (reduce the image size): `spatial_features = bin_spatial(feature_image, size=spatial_size)`
 2. color histogram feature (np.histogram on color image):`hist_features = color_hist(feature_image, nbins=hist_bins)`
    - I grabbed random images from each of the two classes and displayed them to get a feel for what the `color_hist()` output looks like. And here is an example:
 
    <img src="output_images/ColorHist.JPG" width="840"/> 
 
-3. HoG feature (get histogram of oriented gradient after converting image to certain color space onto every block and cells, hog is in `skimage.feature` package):
+3. HOG feature (get histogram of oriented gradient after converting image to certain color space onto every block and cells, hog is in `skimage.feature` package):
 `features, hog_image = hog(img, orientations=orient, pixels_per_cell=(pix_per_cell, pix_per_cell), cells_per_block=(cell_per_block, cell_per_block), transform_sqrt=True, visualise=vis, feature_vector=feature_vec)`
    - I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. And here is an example using the `YCrCb` color space and HOG parameters of `orientations=8` and `pixels_per_cell=(7, 7)`:
 
@@ -57,7 +57,7 @@ I used HoG (Histogram of oriented gradients), spatial_features, color histogram 
 
 The code for this step is contained in the 8th, 9th and 10th code cells of the IPython notebook.  
 
-Then, I normalize features and use machine learning method (SVM in this task) to train dataset using optimized parameters for extracting features.
+Then, I normalized features and used machine learning method (SVM in this task) to train dataset using optimized parameters for extracting features.
 
 I used StandScaler() to normalize extracted features. And we could see before and after normalization:
 
@@ -65,7 +65,7 @@ I used StandScaler() to normalize extracted features. And we could see before an
 
 In this project linear SVM is used and provided an acceptable testing accuracy. 
 
-I tried different combination of HoG settings as well color space for feature extraction. The different option testing accuracies are included below: 
+I tried different combination of HOG settings as well color space for feature extraction. The different option testing accuracies are included below: 
 
 | Op | Color Space | Spatial_size |Hist_bins|  Orientations | Pixels_per_cell | Cells_per_block | HOG channel | Test Accuracy |
 |:--:|:-----------:|:------------:|:-------:|:-------------:|:---------------:|----------------:|------------:|--------------:|
@@ -100,7 +100,7 @@ I tried different scales for sliding window search. And here is an example using
 The code for this step is contained in the 13th and 14th code cells of the IPython notebook. 
 
 Ultimately,
-- I searched on 3 scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector:
+- I searched on 3 scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector
 - The 3 search windows are: `XY_window = [(128, 128), (96, 96), (64, 64)]`
 - X direction cover from leftmost to rightmost
 - Y direction covers from `yStartStop = [(380, 604), (390, 534), (400, 480)]` corresponding for each search window respectively. 
@@ -123,10 +123,10 @@ Here's a [link to the project video result](https://github.com/yuxihe/SelfDrivin
 The code for this step is contained in the 15th, 16th, 17th and 18th code cells of the IPython notebook.
 
 As expected there are some false positive windows and multiple detections. 
-- I use heatmap for the recurring detection and apply threshold to filter out low recurrence which are more likely false positive. 
+- I used heatmap for the recurring detection and apply threshold to filter out low recurrence which are more likely false positive. 
 - I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.
 
-Here are 3 test images and their corresponding heatmaps:
+Here are 3 test images, with the search windows and their corresponding heatmaps:
 
 <img src="output_images/falsePositive.JPG" width="840"/>
 
