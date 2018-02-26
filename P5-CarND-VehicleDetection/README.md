@@ -136,7 +136,7 @@ I then assumed each blob corresponded to a vehicle.  I constructed bounding boxe
 
 Here's an example result showing the heatmap from a test image, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid:
 
-<img src="output_images/Bbox.JPG" width="840"/>
+<img src="output_images/Bbox.JPG" width="1280"/>
 
 ### The files for submission: 
 * P5.ipynb (IPython notebook)
